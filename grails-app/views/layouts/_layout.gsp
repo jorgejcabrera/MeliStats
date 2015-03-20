@@ -16,17 +16,17 @@
         		</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<a href="/MeliStats"><button type="button" class="btn btn-danger navbar-btn">Home</button></a>
+						<a href="${createLink(controller:'miperfil',action:'index') }"><button type="button" class="btn btn-danger navbar-btn">Home</button></a>
 						<div class="btn-group">
 							<button type="button" class="btn btn-danger navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Vender <span class="caret"></span></button>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="${createLink(controller:'busqueda',action:'index') }">Sugerencias</a></li>
+								<li><a href="${createLink(controller:'vender',action:'index') }">Sugerencias</a></li>
 							</ul>
 						</div>
 						<div class="btn-group">
 							<button type="button" class="btn btn-danger navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Comprar <span class="caret"></span></button>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="${createLink(controller:'vender', action: 'index')}">Recomendaciones</a></li>
+								<li><a href="${createLink(controller:'busqueda', action: 'index')}">Recomendaciones</a></li>
 								<li><a href="#">Mis Busquedas</a></li>
 							</ul>
 						</div>
