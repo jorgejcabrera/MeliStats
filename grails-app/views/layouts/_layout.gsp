@@ -6,7 +6,7 @@
 		<script type="text/javascript" src="${resource(dir:'js', file: 'bootstrap.js')}"></script>
 		<g:layoutHead/>
 	</head>
-	<body style="background:rgba(156, 213, 253, 2)">
+	<body style="background:rgba(255, 255, 255, 1)">
 		<nav class="navbar navbar-fixed-top navbar-inverse">
 			<div class="container">
 				<div class="navbar-header">
