@@ -1,10 +1,10 @@
 package melistats
 
 class Preferencia {
-	String nombrePreferencia
-	int preferenciaPrecio
-	int preferenciaEnvio
-	int preferenciaReputacion
+	String nombrePref
+	String precioPref
+	String envioPref
+	String reputacionPref
 	static constraints = {
 	}
 }
