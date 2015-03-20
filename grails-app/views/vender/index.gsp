@@ -8,9 +8,8 @@
 
 		<section>
 			<header>
-				<h1>This is chapter 1.</h1>
+				<h2>¿Que desea vender?</h2>
 			</header>
-			<p>Some contents</p>
 		</section>
 
 		<section>
