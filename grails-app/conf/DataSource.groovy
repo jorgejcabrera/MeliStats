@@ -1,3 +1,5 @@
+def user, pass
+
 dataSource {
 	pooled = true
 	driverClassName = "com.mysql.jdbc.Driver"
@@ -18,24 +20,24 @@ environments {
 		dataSource {
 			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
 			url = "jdbc:mysql://localhost/melistats?useUnicode=yes&characterEncoding=UTF-8"
-			username = "root"
-			password = "mysql"
+			username = ""
+			password = ""
 		}
 	}
 	test {
 		dataSource {
 			dbCreate = "update"
 			url = "jdbc:mysql://localhost/melistats?useUnicode=yes&characterEncoding=UTF-8"
-			username = "root"
-			password = "mysql"
+			username = ""
+			password = ""
 		}
 	}
 	production {
 		dataSource {
 			dbCreate = "update"
 			url = "jdbc:mysql://localhost/melistats?useUnicode=yes&characterEncoding=UTF-8"
-			username = "root"
-			password = "mysql"
+			username = ""
+			password = ""
 		}
 	}
 }
