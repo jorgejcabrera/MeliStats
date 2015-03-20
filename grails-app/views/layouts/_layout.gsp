@@ -16,7 +16,7 @@
         		</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<a href="${createLink(controller:'miperfil',action:'index') }"><button type="button" class="btn btn-danger navbar-btn">Home</button></a>
+						<a href="${createLink(controller:'miPerfil',action:'index') }"><button type="button" class="btn btn-danger navbar-btn">Mi perfil</button></a>
 						<div class="btn-group">
 							<button type="button" class="btn btn-danger navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Vender <span class="caret"></span></button>
 							<ul class="dropdown-menu" role="menu">
