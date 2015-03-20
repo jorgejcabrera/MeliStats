@@ -9,8 +9,7 @@
 			<header>
 				<h2>¿Que desea vender?</h2>
 			</header>
-			<p>Indique un artículo que desea vender y le daremos algunas
-				recomendaciones</p>
+			<p>recomendaciones para la venta de ...</p>
 		</section>
 		<article>
 			<section style="float: left; width: 65%; border: 0px solid">
@@ -27,12 +26,14 @@
 			</section>
 			<aside
 				style="font-style: italic; float: right; width: 34%; border: 0px solid">
-				<pre>
-           			<h4>Posibles compradores</h4>	
+				<h4> Posibles compradores</h4>	
+				<p style="height:415px">
           				<g:each in="${listaEmpleados}" var="unEmpleado">
-							<div>${unEmpleado}</div>
+								<ul style="width:250px; margin-top:-130px;">
+								<li>${unEmpleado} <button class="btn btn-default" type="button">Contactar</button></li>
+								</ul>
           				</g:each>
-           		</pre>
+           		</p>
 			</aside>
 		</article>
 	</div>
