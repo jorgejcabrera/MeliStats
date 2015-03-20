@@ -1,6 +1,10 @@
 package melistats
 
+import grails.converters.JSON
+
 class BusquedaController {
+
+	def busquedaService
 
     def index() { 
 
@@ -12,6 +16,7 @@ class BusquedaController {
 
     def buscar()
     {
+    	render busquedaService.buscar(params) as JSON
     }
 
 }
