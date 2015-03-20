@@ -24,6 +24,21 @@
 					</div>
 				</g:form>
 			</div>
+			<div id="items-stats-container">
+				<div id="estadisticas" style="position:relative; top:200px; width: 400px;">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th style="text-align:center;">Estadísticas</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+				<div id="mejores-productos">
+				</div>
+			</div>
 		</center>
 	</body>
 </html>
