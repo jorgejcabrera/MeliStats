@@ -17,7 +17,7 @@ environments {
 	development {
 		dataSource {
 			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:mysql://localhost/proyecto_grails_meli?useUnicode=yes&characterEncoding=UTF-8"
+			url = "jdbc:mysql://localhost/melistats?useUnicode=yes&characterEncoding=UTF-8"
 			username = "root"
 			password = "mysql"
 		}
@@ -25,7 +25,7 @@ environments {
 	test {
 		dataSource {
 			dbCreate = "update"
-			url = "jdbc:mysql://localhost/proyecto_grails_meli?useUnicode=yes&characterEncoding=UTF-8"
+			url = "jdbc:mysql://localhost/melistats?useUnicode=yes&characterEncoding=UTF-8"
 			username = "root"
 			password = "mysql"
 		}
@@ -33,7 +33,7 @@ environments {
 	production {
 		dataSource {
 			dbCreate = "update"
-			url = "jdbc:mysql://localhost/proyecto_grails_meli?useUnicode=yes&characterEncoding=UTF-8"
+			url = "jdbc:mysql://localhost/melistats?useUnicode=yes&characterEncoding=UTF-8"
 			username = "root"
 			password = "mysql"
 		}
