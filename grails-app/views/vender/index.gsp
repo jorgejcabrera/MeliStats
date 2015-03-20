@@ -23,9 +23,23 @@
 						</div>
 					</div>
 				</div>
+				<table style="position: relative; top: 20px; left: 35px;width: 70%">
+					<thead>
+						<tr>
+							<td>Articulo</td>
+							<td>Foto</td>
+							<td>Descripcion</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+
+						</tr>
+					</tbody>
+				</table>
 			</section>
 			<aside
-				style="font-style: italic; float: right; width: 34%; border: 0px solid">
+				style="font-style: arial; float: right; width: 34%; border: 0px solid">
 				<h4> Posibles compradores</h4>	
 				<p style="height:415px">
           				<g:each in="${listaEmpleados}" var="unEmpleado">
