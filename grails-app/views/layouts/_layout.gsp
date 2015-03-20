@@ -11,13 +11,13 @@
 			<div class="container">
 				<div class="navbar-header">
           			<ul class="nav navbar-nav">
-          				<li><a class="navbar-brand" href="/MeliStats">MeliStats</a></li>
+          				<li><a class="navbar-brand" href="/MeliStats/principal">MeliStats</a></li>
           			</ul>
         		</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<a href="/MeliStats"><button type="button" class="btn btn-danger navbar-btn">Home</button></a>
-						<a href="/MeliStats/vender/index"><button type="button" class="btn btn-danger navbar-btn">Sugerencias</button></a>
+						<a href="/MeliStats/busqueda"><button type="button" class="btn btn-danger navbar-btn">Sugerencias</button></a>
 						<a href="/MeliStats"><button type="button" class="btn btn-danger navbar-btn">Recomendaciones</button></a>
 					</ul>
 				</div>
