@@ -2,7 +2,7 @@ package melistats
 
 class Busqueda {
 	String descripcion
-	Date fechaBusqueda
+	Date fechaInicioBusqueda
 	static hasMany = [muestras: Muestra]
 	static constraints = {
 	}
