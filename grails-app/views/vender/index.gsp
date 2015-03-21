@@ -6,6 +6,7 @@
 </head>
 <body>
 	<g:hiddenField id="offset" name="offset" value="0" />
+	<g:hiddenField id="maxRows" name="maxRows" value="0" />
 	<div style="position: relative; top: 50px; left: 0px">
 		<section class="panel panel-primary">
 			<header>
@@ -40,6 +41,10 @@
 
 						</tbody>
 					</table>
+					<div style="position: relative; top: 100px; left:160px">
+						<button class="btn btn-default" id="anterior" type="button">Anterior</button>
+						<button class="btn btn-default" id="siguiente" type="button">Siguiente</button>
+					</div>
 				</div>
 			</section>
 			<aside
@@ -55,9 +60,6 @@
 			</aside>
 		</article>
 	</div>
-	
-	
-	
 		<script type="text/javascript">
 		console.log("Punto 1");
 		$("#list-empleado").hide();		
@@ -126,13 +128,8 @@
 			} else {
 				html += "<tr class='odd'>";
 			}
-			console.log($("#idEmpleado").val())
-			//console.log("antes del tittle")
-			html += "<td>" + "<a href='/meli-regalos/itemFinder/show/"
-					+ item.id + "?idEmpleado=" + $("#idEmpleado").val() + "'>"
-					+ item.title + "</a>"
-			"</td>";
-			//console.log("despues del tittle " + item.title);
+			html += "<td>" 
+					+ item.title +"</td>";
 			html += "<td>"
 					+ "<img src='"+item.thumbnail+"' height='42' width='42'>"
 					+ "</td>"
