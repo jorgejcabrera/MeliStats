@@ -10,10 +10,6 @@ class BusquedaService {
 	def slurper = new JsonSlurper()
     def muestraService
 
-    def serviceMethod() {
-
-    }
-
     def getDatos(nombreBusqueda)
     {
     	def urlBusqueda = new URL(endpointItems+nombreBusqueda)
@@ -59,6 +55,18 @@ class BusquedaService {
 
     	return [status: 'success', muestra: muestra]
 
+    }
+
+    def actualizarBusquedas()
+    {
+        for(busqueda in Busqueda.list())
+        {
+            def datos = getDatos(busqueda.descripcion)
+            if( datos != null && datos.results != [] )
+            {
+                muestraService.agregarMuestra(busqueda,datos)
+            }
+        }
     }
 
 }

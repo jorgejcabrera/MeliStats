@@ -5,10 +5,6 @@ import grails.transaction.Transactional
 @Transactional
 class MuestraService {
 
-    def serviceMethod() {
-
-    }
-
     def agregarMuestra(busqueda, datos)
     {
 
@@ -23,7 +19,7 @@ class MuestraService {
     	def procentajeEnvioGratis = procentajeEnvioGratis(productos)
     	def ventasPorTipoVendedor = ventasPorRango(productos)
     	def ventasPromedio = ventasPromedio(productos)
-    	print ventasPorTipoVendedor.values().class.name
+    	
 		def muestra = new Muestra(
 					fechaDeMuestra: new Date(), 
 					precioPromedio: precioPromedio,
@@ -36,7 +32,7 @@ class MuestraService {
 					).save(flush: true, failOnError: true) 	
 
 		busqueda.addToMuestras(muestra)
-			
+
 		return muestra
 
     }
