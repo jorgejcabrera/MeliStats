@@ -8,9 +8,9 @@
 	<body>
 		<center>
 			<div id="buscador" style="position:relative; top:100px; width:900px;">
-				<g:form action="buscar" class="form-inline">
+				<form class="form-inline">
 					<div class="form-group" id="contenedor-buscador" >
-						<input class="form-control" id="busqueda" type="search" name="busqueda" style="width:400px;"> 
+						<input class="form-control" id="busqueda" type="text" name="busqueda" style="width:400px;"> 
 					</div>
 					<div class="form-group" id="contenedor-preferencia">
 						 <g:select class="form-control"  id="preferencia" name="preferencia" from="${preferencias}"  optionValue="nombrePref" optionKey="id" noSelection="${[null:'Elija una Preferencia']}"/>
@@ -23,7 +23,7 @@
 							<input type="checkbox" name="guardar" id="checkbox">Guardar Búsqueda
 						</label>
 					</div>
-				</g:form>
+				</form>
 			</div>
 			<div id="items-stats-container" style="position:relative; top:200px; width:900px;">
 				<div id="estadisticas-container" style="float:left;width:400px;">
