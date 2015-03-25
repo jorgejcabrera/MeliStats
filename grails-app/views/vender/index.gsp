@@ -26,8 +26,8 @@
 						</div>
 					</div>
 				</div>
-				<div id="list-empleado">
-					<div id="textoRespuesta"></div>
+				<div id="list-promedio">
+				<!-- <div id="textoRespuesta"></div> -->
 					<table
 						style="position: relative; top: 20px; left: 35px; width: 70%">
 						<thead>
@@ -61,95 +61,63 @@
 		</article>
 	</div>
 		<script type="text/javascript">
-		console.log("Punto 1");
-		$("#list-empleado").hide();		
-		$("#textoRespuesta").hide();
-		$("#botonBuscador").click(buscar)
+		/*la funcion calcular retorna una promesa, para ello se crea una variable global llamada deferred
+		de tipo $.Deferred(), se necesito esto para que la suma total se agrege al contenido_tabla una vez 
+		que termino la ULTIMA LLAMADA DE AJAX a la api de mercado libre para calcular la suma total*/
+		var montoTotal = 0
+		$("#list-promedio").hide()		
+		$("#textoRespuesta").hide()
+		$("#botonBuscador").click(accionBuscar)
 		$("#textBusqueda").keypress(verificarEnter)
-		$("#siguiente").click(mostrarSiguientes)
-		$("#anterior").click(mostrarAnteriores)
-		function mostrarSiguientes() {
-			var offset = parseInt($("#offset").val(),10);
-			if (offset + 50 > $("#maxRows").val()) {
-				console.log("se supero el max offset")
-
-			} else {
-				$("#offset").val(offset+50)
-				buscar();
-			}
-		}
-		function mostrarAnteriores() {
-			var offset = parseInt($("#offset").val(),10);
-			if (offset - 50 < 0) {
-				console.log("se supero el min offset")
-			} else {
-				$("#offset").val(offset-50)
-				buscar();
-			}
+		var deferred
+		function accionBuscar(){
+			$("#textoRespuesta").show()
+			$("#list-promedio").show()
+			deferred = $.Deferred()
+			calcular(0).done(function() {
+				var html = ""
+				html += "<tr>"
+				html += "<td>" + montoTotal +"</td>"
+				html += "</tr>"
+				$("#contenido_tabla").append(html)
+			});
 		}
 		function verificarEnter(event) {
-			if (event.which == 13) { 				/*para que tome el enter. Se tiene que comparar con 13*/
-				buscar();
+			if (event.which == 13) { 
+					accionBuscar()
 			}
 		}
-		function mostrarResultado(data) {
-			console.log("Punto 5");
-			var infoRespuesta = document.getElementById("textoRespuesta");
-			infoRespuesta.innerHTML = "<h1></h1>"
-			$("#maxRows").val(data.paging.total);
-			$.each(data.results, agregarResultado)
-		}
-		function buscar() {
-			var divRespuesta = $("#textoRespuesta");
-			divRespuesta.show();
-			$("#list-empleado").show();
-			var tabla = document.getElementById("contenido_tabla")
-			while (tabla.firstChild) {
-				tabla.removeChild(tabla.firstChild);
+		function sumaParcial(data) {
+			console.log(data.paging)
+			$.each(data.results,sumarMontoTotal)
+			if(data.paging.offset + data.paging.limit < data.paging.total ){
+				calcular(data.paging.offset+data.paging.limit)
+				return true
 			}
-			var busqueda = $("#textBusqueda").val();
-			var offset = $("#offset").val();
-			var promise = $.get(
-					"https://api.mercadolibre.com/sites/MLA/search", {
-						q : busqueda,
-						offset : offset
-					});
-			//console.log("Punto 2");
-			promise.done(mostrarResultado);
-			//console.log("Punto 3");
-			promise.fail(mostrarError);
-			//console.log("Punto 4");
+			return false
 		}
-		function agregarResultado(index, item) {
-			//console.log(item.title);
-			var html = "";
-			if (index % 2 == 0) {
-				html += "<tr class='even'>";
-			} else {
-				html += "<tr class='odd'>";
-			}
-			html += "<td>" 
-					+ item.title +"</td>";
-			html += "<td>"
-					+ "<img src='"+item.thumbnail+"' height='42' width='42'>"
-					+ "</td>"
-			html += "<td>" + item.price + "</td>"
-
-			html += "</tr>"
-			$("#contenido_tabla").append(html);
-
+		function calcular(offset) {	
+				var busqueda = $("#textBusqueda").val();
+				var promise = $.get(
+							"https://api.mercadolibre.com/sites/MLA/search", {
+								q : busqueda,
+								offset : offset,
+								limit : 200
+						});
+				promise.done(function(data) { 
+					var result = sumaParcial(data)
+					if(result == false) deferred.resolve() 
+				});
+				promise.fail(mostrarError)
+				return deferred.promise()
+		}
+		function sumarMontoTotal(index, item) {
+			montoTotal += item.price;
+			//console.log(montoTotal)
 		}
 		function mostrarError() {
-			console.log("Punto 6");
-			$("#respuesta_api").html("<li>Se produjo un errors</li>");
+			$("#respuesta_api").html("<li>Se produjo un errors</li>")
 		}
-		//console.log("Punto 7");
-	</script>
-	
-	
-	
-	
-	
-	
+		</script>
 </body>
 </html>
