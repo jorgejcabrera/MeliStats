@@ -6,23 +6,23 @@ class BootStrap {
 
     	def pref = [
     	new Preferencia(
-    		 nombrePref : 'test',
-			 precioPref : 0,
+    		 nombrePref : 'precio',
+			 precioPref : 10,
 			 envioPref  : 0,
 			 reputacionPref : 0,
 
     		).save(flush:true,failOnError:true),
     	new Preferencia(
-    		 nombrePref : 'hola',
+    		 nombrePref : 'rep',
 			 precioPref : 0,
 			 envioPref  : 0,
-			 reputacionPref : 0,
+			 reputacionPref : 10,
 
     		).save(flush:true,failOnError:true),
     	new Preferencia(
-    		 nombrePref : 'chau',
+    		 nombrePref : 'envio',
 			 precioPref : 0,
-			 envioPref  : 0,
+			 envioPref  : 10,
 			 reputacionPref : 0,
 
     		).save(flush:true,failOnError:true)]
