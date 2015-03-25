@@ -54,6 +54,8 @@
 								<th style="text-align:center;">Mejores Productos</th>
 							</tr>
 						</thead>
+						<tbody id="body-productos">
+						</tbody>
 					</table>
 				</div>
 			</div>

@@ -33,6 +33,7 @@ function ejecutarBusqueda()
 
 	resetAlerta()
 	resetEstadisticas()
+	resetMejoresResultados()
 
 	var jsonBusqueda = {
 
@@ -60,14 +61,13 @@ function mostrarResultados(data)
 	var precioPromedio = data.muestra.precioPromedio
 	var porcentajeEnvioGratis = data.muestra.porcentajeEnvioGratis
 	var ventasPorTipoVendedor = data.muestra.ventasPorTipoVendedor
-
+	var mejoresResultados = data.mejoresResultados
 	
 
 	mostrarLinkEstadisticas()
 	mostrarPrecioPromedio(precioPromedio)
 	mostrarPorcentajeEnvio(porcentajeEnvioGratis)
-
-	//mostrar los 5 productos mas optimos en relacion a la preferencia
+	mostrarMejoresResultados(mejoresResultados)
 
 }
 
@@ -87,6 +87,11 @@ function resetEstadisticas()
 	$('#url-datos').empty()
 	$('#precio-promedio').empty()
 	$('#grafico-envio').empty()
+}
+
+function resetMejoresResultados()
+{
+	$('#body-productos').empty()
 }
 
 function alertar(tipo, contenido)
@@ -128,4 +133,16 @@ function mostrarPorcentajeEnvio(porcentaje)
       })();
 
 
+}
+
+function mostrarMejoresResultados(resultados)
+{	
+	for(var i = 0; i < resultados.length ; i++)
+	{
+		var titulo = resultados[i].title
+		var link = resultados[i].permalink
+
+		$('#body-productos').append('<tr><td><a href="'+link+'">'+titulo+'</a></td></tr>')
+
+	}
 }

@@ -9,6 +9,7 @@ class BusquedaService {
 	def endpointItems = 'https://api.mercadolibre.com/sites/MLA/search?limit=50&q='
 	def slurper = new JsonSlurper()
     def muestraService
+    def preferenciaService
 
     def getDatos(nombreBusqueda)
     {
@@ -54,13 +55,23 @@ class BusquedaService {
        
 
         //agregar mejores resultados segun preferencia
+        def mejoresResultados, pref = params.preferencia
+
+        if(pref != 'null')
+        {
+            mejoresResultados = preferenciaService.mejoresResultados(datos.results, muestra, Preferencia.get(pref) )
+        }
+        else
+        {
+            mejoresResultados = datos.results[0..4]
+        }
 
         if(params.checkout == 'on')
         {
             //usuario actual agregar a busqueda
         }
 
-    	return [status: 'success', muestra: muestra]
+    	return [status: 'success', muestra: muestra, mejoresResultados: mejoresResultados]
 
     }
 
