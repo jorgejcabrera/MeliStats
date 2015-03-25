@@ -7,6 +7,11 @@ class UrlMappings {
             }
         }
 
+        "/estadisticas/${busqueda}"{
+        	controller = 'estadistica'
+        	action = 'index'
+        }
+
         "/"(controller:'Principal', action:"/index") 
         "500"(view:'/error')
 	}

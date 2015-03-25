@@ -3,7 +3,11 @@
 	<head>
 		<meta name="layout" content="_layout"/>
 		<title>Búsuqeda</title>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" src="${resource(dir:'js', file: 'busqueda.js')}"></script>
+		<script type="text/javascript">
+ 			google.load("visualization", "1", {packages:["corechart"]});
+		</script>
 	</head>
 	<body>
 		<center>
@@ -35,10 +39,13 @@
 								<th style="text-align:center;">Estadísticas</th>
 							</tr>
 						</thead>
-						<tbody id="estadisticas">
-							<!-- completar via jQuery.ajax() -->
-						</tbody>
 					</table>
+					<div id="url-datos" style="width:350px;">
+					</div>
+					<div id="precio-promedio" style="position:relative; top:25px;width:350px;">
+					</div>
+					<div id="grafico-envio" style="position:relative; top:25px;width:350px;height:400px;">
+					</div>
 				</div>
 				<div id="productos-container" style="float:right;width:400px;">
 					<table class="table table-striped">
@@ -47,9 +54,6 @@
 								<th style="text-align:center;">Mejores Productos</th>
 							</tr>
 						</thead>
-						<tbody id="productos">
-							<!-- completar via jQuery.ajax() -->
-						</tbody>
 					</table>
 				</div>
 			</div>

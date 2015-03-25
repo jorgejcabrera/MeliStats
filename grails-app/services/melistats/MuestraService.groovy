@@ -16,7 +16,7 @@ class MuestraService {
     	def precioMax = precios.max()
     	def precioMin = precios.min()
 
-    	def procentajeEnvioGratis = procentajeEnvioGratis(productos)
+    	def porcentajeEnvioGratis = porcentajeEnvioGratis(productos)
     	def ventasPorTipoVendedor = ventasPorRango(productos)
     	def ventasPromedio = ventasPromedio(productos)
     	
@@ -25,7 +25,7 @@ class MuestraService {
 					precioPromedio: precioPromedio,
 					precioMax: precioMax,
 					precioMin: precioMin,
-					procentajeEnvioGratis: procentajeEnvioGratis,
+					porcentajeEnvioGratis: porcentajeEnvioGratis,
 					ventasPorTipoVendedor: ventasPorTipoVendedor,
 					ventasPromedio: ventasPromedio,
 					busqueda: busqueda
@@ -38,10 +38,10 @@ class MuestraService {
     }
   
 
-    def procentajeEnvioGratis(productos)
+    def porcentajeEnvioGratis(productos)
     {
     	def prodEnvioGratis = productos.findAll{it.shipping.free_shipping}.size()
-    	return prodEnvioGratis / productos.size() * 100
+    	return ( (float)prodEnvioGratis / (float)productos.size() ) * 100f
     }
 
     def ventasPorRango(productos)

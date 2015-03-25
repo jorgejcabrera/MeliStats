@@ -1,4 +1,5 @@
 var endpoint = "/MeliStats/busqueda/buscar"
+var ultimabusqueda = ""
 
 $(document).ready(function(){
 
@@ -31,6 +32,7 @@ function ejecutarBusqueda()
 	}
 
 	resetAlerta()
+	resetEstadisticas()
 
 	var jsonBusqueda = {
 
@@ -41,20 +43,30 @@ function ejecutarBusqueda()
 	}
 
 	var promesa = $.post(endpoint, jsonBusqueda)
+	ultimabusqueda = jsonBusqueda.textoBusqueda
 	promesa.done(mostrarResultados)
 	promesa.fail(mostrarError)
 }
 
 function mostrarResultados(data)
 {
+
 	if($.isEmptyObject(data) || data.status == 'no_results')
 	{
 		alertar('alert-warning','No hay resultados.')
 		return 
 	}
 
+	var precioPromedio = data.muestra.precioPromedio
+	var porcentajeEnvioGratis = data.muestra.porcentajeEnvioGratis
+	var ventasPorTipoVendedor = data.muestra.ventasPorTipoVendedor
 
-	//mostrar estadisticas basicas y link a la pag. de estadisticas completa
+	
+
+	mostrarLinkEstadisticas()
+	mostrarPrecioPromedio(precioPromedio)
+	mostrarPorcentajeEnvio(porcentajeEnvioGratis)
+
 	//mostrar los 5 productos mas optimos en relacion a la preferencia
 
 }
@@ -70,10 +82,50 @@ function resetAlerta()
 	$('#alerta').hide()
 }
 
+function resetEstadisticas()
+{
+	$('#url-datos').empty()
+	$('#precio-promedio').empty()
+	$('#grafico-envio').empty()
+}
+
 function alertar(tipo, contenido)
 {
 	resetAlerta()
 	$('#alerta').show()
 	$('#alerta').append(contenido)
 	$('#alerta').addClass(tipo)
+}
+
+function mostrarLinkEstadisticas()
+{
+	var link = '<h4><a href="/MeliStats/estadisticas/'+ultimabusqueda+'">Ver Estadsitcas Completas</a></h4>'
+	$('#url-datos').append(link)
+}
+
+function mostrarPrecioPromedio(precio)
+{
+	$('#precio-promedio').append('<h4>Precio promedio: '+precio+'</h4>')
+}
+
+function mostrarPorcentajeEnvio(porcentaje)
+{
+	
+    (function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['', ''],
+          ['Gratis', porcentaje],
+          ['Pago', (100-porcentaje)],
+        ]);
+
+        var options = {
+          title: 'Tipos de Envio',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('grafico-envio'));
+        chart.draw(data, options);
+      })();
+
+
 }

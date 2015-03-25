@@ -12,6 +12,8 @@ class BusquedaService {
 
     def getDatos(nombreBusqueda)
     {
+        nombreBusqueda = nombreBusqueda.replaceAll(' ','%20')
+        
     	def urlBusqueda = new URL(endpointItems+nombreBusqueda)
     	
     	def resultados = slurper.parse(urlBusqueda, requestProperties: [Accept:'application/json'])
@@ -49,9 +51,14 @@ class BusquedaService {
 
         //si no hay muestras muestraSerice.agregarMuestra() crea una, la agrega a la busqueda y la devuelve
         def  muestra = busqueda.getUltimaMuestra()?: muestraService.agregarMuestra(busqueda, datos)       
-        
+       
 
         //agregar mejores resultados segun preferencia
+
+        if(params.checkout == 'on')
+        {
+            //usuario actual agregar a busqueda
+        }
 
     	return [status: 'success', muestra: muestra]
 
