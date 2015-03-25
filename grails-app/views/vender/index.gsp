@@ -27,24 +27,6 @@
 					</div>
 				</div>
 				<div id="list-promedio">
-				<!-- <div id="textoRespuesta"></div> -->
-					<table
-						style="position: relative; top: 20px; left: 35px; width: 70%">
-						<thead>
-							<tr>
-								<td>Descripcion</td>
-								<td>Imagen</td>
-								<td>Precio</td>
-							</tr>
-						</thead>
-						<tbody id="contenido_tabla">
-
-						</tbody>
-					</table>
-					<div style="position: relative; top: 100px; left:160px">
-						<button class="btn btn-default" id="anterior" type="button">Anterior</button>
-						<button class="btn btn-default" id="siguiente" type="button">Siguiente</button>
-					</div>
 				</div>
 			</section>
 			<aside
@@ -63,23 +45,29 @@
 		<script type="text/javascript">
 		/*la funcion calcular retorna una promesa, para ello se crea una variable global llamada deferred
 		de tipo $.Deferred(), se necesito esto para que la suma total se agrege al contenido_tabla una vez 
-		que termino la ULTIMA LLAMADA DE AJAX a la api de mercado libre para calcular la suma total*/
+		que termino la ULTIMA LLAMADA DE AJAX a la api de mercado libre para calcular la suma total de precios
+		del conjunto de items correspondientes a una busquedea*/
 		var montoTotal = 0
+		var cantidadItems = 0
 		$("#list-promedio").hide()		
-		$("#textoRespuesta").hide()
 		$("#botonBuscador").click(accionBuscar)
 		$("#textBusqueda").keypress(verificarEnter)
 		var deferred
 		function accionBuscar(){
-			$("#textoRespuesta").show()
 			$("#list-promedio").show()
 			deferred = $.Deferred()
+			var tabla = document.getElementById("list-promedio")
+			while (tabla.firstChild) {
+				tabla.removeChild(tabla.firstChild)
+				montoTotal = 0
+				cantidadItems = 0
+			}
 			calcular(0).done(function() {
 				var html = ""
 				html += "<tr>"
-				html += "<td>" + montoTotal +"</td>"
+				html += "<td>" + montoTotal / cantidadItems +"</td>"
 				html += "</tr>"
-				$("#contenido_tabla").append(html)
+				$("#list-promedio").append(html)
 			});
 		}
 		function verificarEnter(event) {
@@ -87,14 +75,15 @@
 					accionBuscar()
 			}
 		}
+		//retorna false cuando se hizo la ultima llamada a la api de mercado libre
 		function sumaParcial(data) {
 			console.log(data.paging)
 			$.each(data.results,sumarMontoTotal)
-			if(data.paging.offset + data.paging.limit < data.paging.total ){
+			if(data.paging.offset + data.paging.limit < cantidadItems ){
 				calcular(data.paging.offset+data.paging.limit)
 				return true
 			}
-			return false
+			return false	
 		}
 		function calcular(offset) {	
 				var busqueda = $("#textBusqueda").val();
@@ -105,8 +94,10 @@
 								limit : 200
 						});
 				promise.done(function(data) { 
+					if(data.paging.total > 10000) cantidadItems = 1000
+					else cantidadItems = data.paging.total
 					var result = sumaParcial(data)
-					if(result == false) deferred.resolve() 
+					if(result == false) deferred.resolve() 		//si sumaParcial devuelve false, la promesa se cumplio
 				});
 				promise.fail(mostrarError)
 				return deferred.promise()
