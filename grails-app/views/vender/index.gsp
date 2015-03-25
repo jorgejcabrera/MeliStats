@@ -26,7 +26,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="list-promedio">
+				<div  class="well well-sm" id="list-promedio">
 				</div>
 			</section>
 			<aside
@@ -64,9 +64,7 @@
 			}
 			calcular(0).done(function() {
 				var html = ""
-				html += "<tr>"
-				html += "<td>" + montoTotal / cantidadItems +"</td>"
-				html += "</tr>"
+				html += "<h3>"+"El precio sugerido es " + montoTotal / cantidadItems +"</h3>"
 				$("#list-promedio").append(html)
 			});
 		}
