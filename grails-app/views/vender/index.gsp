@@ -49,6 +49,7 @@
 		del conjunto de items correspondientes a una busquedea*/
 		var montoTotal = 0
 		var cantidadItems = 0
+		var articulosConMP = 0
 		$("#list-promedio").hide()		
 		$("#botonBuscador").click(accionBuscar)
 		$("#textBusqueda").keypress(verificarEnter)
@@ -57,15 +58,18 @@
 			$("#list-promedio").show()
 			deferred = $.Deferred()
 			var tabla = document.getElementById("list-promedio")
-			while (tabla.firstChild) {
+			while (tabla.firstChild){
 				tabla.removeChild(tabla.firstChild)
 				montoTotal = 0
 				cantidadItems = 0
 			}
 			calcular(0).done(function() {
-				var html = ""
-				html += "<h3>"+"El precio sugerido es " + montoTotal / cantidadItems +"</h3>"
-				$("#list-promedio").append(html)
+				var valorMontoTotal = ""
+				var valorArticulosConMp = ""
+				valorMontoTotal += "<h3>"+"Precio sugerido: $" + montoTotal / cantidadItems +"</h3>"
+				valorArticulosConMp += "<h3>"+"Articulos con MP: " + articulosConMP + "</h3>"
+				$("#list-promedio").append(valorMontoTotal)
+				$("#list-promedio").append(valorArticulosConMp)
 			});
 		}
 		function verificarEnter(event) {
@@ -94,15 +98,17 @@
 				promise.done(function(data) { 
 					if(data.paging.total > 10000) cantidadItems = 1000
 					else cantidadItems = data.paging.total
-					var result = sumaParcial(data)
-					if(result == false) deferred.resolve() 		//si sumaParcial devuelve false, la promesa se cumplio
+					var sumaTerminada = sumaParcial(data)
+					if(sumaTerminada == false) deferred.resolve() 		//si sumaParcial devuelve false, la promesa se cumplio
 				});
 				promise.fail(mostrarError)
 				return deferred.promise()
 		}
 		function sumarMontoTotal(index, item) {
 			montoTotal += item.price;
-			//console.log(montoTotal)
+			console.log(item.accepts_mercadopago)
+			if(item.accepts_mercadopago)
+				articulosConMP += 1;
 		}
 		function mostrarError() {
 			$("#respuesta_api").html("<li>Se produjo un errors</li>")
