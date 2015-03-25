@@ -59,13 +59,8 @@
       google.setOnLoadCallback(drawChart)
 
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Mes de Muestra', 'Promedio de ventas', 'Precio Máximo'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]
-        ])
+
+        var data = google.visualization.arrayToDataTable(${rectas})
 
         var options = {
           title: 'Estadísticas de la busqueda a lo largo del tiempo',
