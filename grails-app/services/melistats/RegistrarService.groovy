@@ -9,10 +9,14 @@ class RegistrarService {
 
     	try{
 
-
-    		def usuario = new User(username:user, password:pass)
-    		usuario.save(flush:true, failOnError: true)
-        	UserRole.create(test, rol, true)
+            Usuario.withTransaction{
+    		
+                def usuarioSpring = new User(username:user, password:pass)
+        		usuarioSpring.save(flush:true, failOnError: true)
+            	UserRole.create(usuarioSpring, Role.get(0), true)
+                def usuarioPerfil = new Usuario(nombre:user, springUser:usuarioSpring)
+                usuarioPerfil.save(flush: true, failOnError: true)
+            }
 
         	return [status: 'success']
 
