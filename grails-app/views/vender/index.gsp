@@ -51,6 +51,7 @@
 		que termino la ULTIMA LLAMADA DE AJAX a la api de mercado libre para calcular la suma total de precios
 		del conjunto de items correspondientes a una busquedea*/
 
+		var deferred
 		var sumaTotal = 0
 		var cantidadItems = 0
 		var cantidadItemsConMP = 0
@@ -61,12 +62,11 @@
 		$("#listado-resultado").hide()
 		$("#botonBuscador").click(accionBuscar)
 		$("#textBusqueda").keypress(verificarEnter)
-		var deferred
+		
 		function accionBuscar() {
 			$("#listado-resultado").show()
 			deferred = $.Deferred()
 			var tabla = document.getElementById("listado-resultado")
-
 			while (tabla.firstChild) {
 				tabla.removeChild(tabla.firstChild)
 				sumaTotal = 0
@@ -74,6 +74,8 @@
 			}
 			calcular(0).done(
 					function() {
+						console.log(sumaTotal)
+						console.log("la cantidad de items procesados es :"+cantidadItems)
 						console.log("items con MP "+cantidadItemsConMP)
 						console.log("cant items "+cantidadItems)
 						console.log("cant items vendidos con mp "+cantidadItemsVendidosConMP)
@@ -113,13 +115,13 @@
 		function procesarEstadisticas(data) {
 			console.log(data.paging)
 			$.each(data.results, procesarItem)
-			if (data.paging.offset + data.paging.limit < cantidadItems) {
+			if (data.paging.offset + data.paging.limit < data.paging.total) {
 				calcular(data.paging.offset + data.paging.limit)
 				return true
 			}
 			return false
 		}
-		
+
 		function calcular(offset) {
 			var busqueda = $("#textBusqueda").val();
 			var promise = $.get(
@@ -129,21 +131,21 @@
 						limit : 200
 					});
 			promise.done(function(data) {
-				if (data.paging.total > 10000)
-					cantidadItems = 1000
-				else
-					cantidadItems = data.paging.total
-				var sumaTerminada = procesarEstadisticas(data)
-				if (sumaTerminada == false)
+				if (data.paging.total > 5000)
+					alert("especifique mas la busqueda")
+				var estadisticaTerminada = procesarEstadisticas(data)
+				if (estadisticaTerminada == false)
 					deferred.resolve() //si procesarEstadisticas devuelve false, la promesa se cumplio
 			});
 			promise.fail(mostrarError)
 			return deferred.promise()
 		}
 
+		//los articulos que son subastas tienen una varianza en el precio muy grande con el promedio
 		function procesarItem(index, item) {
 			if (item.buying_mode == "buy_it_now"
 					|| item.buying_mode == "classified") {
+				cantidadItems += 1
 				sumaTotal += item.price
 				cantidadItemsVendidos += item.sold_quantity
 				if (item.accepts_mercadopago) {
