@@ -7,7 +7,8 @@ class MiPerfilController {
 	def usuarioService
 
     def nuevaPref(){
-     	if(Preferencia.findByNombrePref(params.nombrePref)==null){
+    	def actual = usuarioService.usuarioActual()
+     	if(actual.preferencias.find{it.nombrePref == params.nombrePref}==null){
      		def nombre = params.nombrePref
      		def precio = params.precioPref
      		def envio = params.envioPref
@@ -16,7 +17,6 @@ class MiPerfilController {
      		Preferencia p1 = new Preferencia(nombrePref: nombre, precioPref: precio, envioPref: envio, reputacionPref: reputacion);
      		p1.save(failOnError:true)
 
-     		def actual = usuarioService.usuarioActual()
      		actual.addToPreferencias(p1)
      		actual.save(flush: true, failOnError: true)
 
@@ -51,7 +51,7 @@ class MiPerfilController {
 
 
     def index() {
-    	[preferencias:usuarioService.usuarioActual().preferencias]
+    	[preferencias:usuarioService.usuarioActual().preferencias.sort{it.nombrePref}]
     }
 
 
