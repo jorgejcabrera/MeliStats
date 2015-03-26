@@ -53,7 +53,7 @@
 
 		var deferred
 		var sumaTotal = 0
-		var cantidadItems = 0
+		var cantidadItems = 1000
 		var cantidadItemsConMP = 0
 		var cantidadItemsVendidos = 0
 		var cantidadItemsVendidosConMP = 0
@@ -70,7 +70,7 @@
 			while (tabla.firstChild) {
 				tabla.removeChild(tabla.firstChild)
 				sumaTotal = 0
-				cantidadItems = 0
+				cantidadItems = 1000
 			}
 			calcular(0).done(
 					function() {
@@ -115,7 +115,7 @@
 		function procesarEstadisticas(data) {
 			console.log(data.paging)
 			$.each(data.results, procesarItem)
-			if (data.paging.offset + data.paging.limit < data.paging.total) {
+			if (data.paging.offset + data.paging.limit < cantidadItems) {
 				calcular(data.paging.offset + data.paging.limit)
 				return true
 			}
@@ -131,8 +131,7 @@
 						limit : 200
 					});
 			promise.done(function(data) {
-				if (data.paging.total > 5000)
-					alert("especifique mas la busqueda")
+				if (data.paging.total < cantidadItems) cantidadItems = data.paging.total
 				var estadisticaTerminada = procesarEstadisticas(data)
 				if (estadisticaTerminada == false)
 					deferred.resolve() //si procesarEstadisticas devuelve false, la promesa se cumplio
@@ -143,9 +142,7 @@
 
 		//los articulos que son subastas tienen una varianza en el precio muy grande con el promedio
 		function procesarItem(index, item) {
-			if (item.buying_mode == "buy_it_now"
-					|| item.buying_mode == "classified") {
-				cantidadItems += 1
+			if (item.buying_mode != "auction") {
 				sumaTotal += item.price
 				cantidadItemsVendidos += item.sold_quantity
 				if (item.accepts_mercadopago) {
