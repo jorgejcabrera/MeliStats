@@ -3,6 +3,13 @@
 <head>
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <meta name="layout" content="_layout" />
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	google.load("visualization", "1", {
+		packages : [ "corechart" ]
+	});
+	google.setOnLoadCallback(drawChart);
+</script>
 </head>
 <body>
 	<g:hiddenField id="offset" name="offset" value="0" />
@@ -19,20 +26,20 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="input-group">
-							<input type="text" class="form-control" id="textBusqueda" placeholder="sugerencias para:">
-							<span class="input-group-btn">
+							<input type="text" class="form-control" id="textBusqueda"
+								placeholder="sugerencias para:"> <span
+								class="input-group-btn">
 								<button class="btn btn-default" id="botonBuscador" type="button">Buscar</button>
 							</span>
 						</div>
 					</div>
 				</div>
-				<div  class="well well-sm" id="listado-resultado">
-				</div>
+				<div class="well well-sm" id="listado-resultado"></div>
 			</section>
 			<aside
 				style="font-style: arial; float: right; width: 34%; border: 0px solid">
-				<h4> Posibles compradores</h4>	
-				<p style="height:415px">
+				<h4>Posibles compradores</h4>
+				<p style="height: 415px">
 					<g:each in="${listaEmpleados}" var="unEmpleado">
 						<ul style="width: 250px; margin-top: -130px;">
 							<li>
@@ -52,65 +59,64 @@
 		del conjunto de items correspondientes a una busquedea*/
 
 		var deferred
-		var sumaTotal = 0
 		var cantidadItems = 1000
+		var sumaTotal = 0
 		var cantidadItemsConMP = 0
 		var cantidadItemsVendidos = 0
-		var cantidadItemsVendidosConMP = 0
-		var cantidadItemsConME = 0
-		var cantidadItemsVendidosConME = 0
+		var cantidadItemsConMEGratis = 0
+		var cantidadItemsPublicados = 0
 		$("#listado-resultado").hide()
 		$("#botonBuscador").click(accionBuscar)
 		$("#textBusqueda").keypress(verificarEnter)
-		
+
 		function accionBuscar() {
 			$("#listado-resultado").show()
 			deferred = $.Deferred()
 			var tabla = document.getElementById("listado-resultado")
 			while (tabla.firstChild) {
 				tabla.removeChild(tabla.firstChild)
-				sumaTotal = 0
 				cantidadItems = 1000
+				sumaTotal = 0
+				cantidadItemsConMP = 0
+				cantidadItemsVendidos = 0
+				cantidadItemsConMEGratis = 0
+				cantidadItemsPublicados = 0
 			}
 			calcular(0).done(
 					function() {
-						console.log(sumaTotal)
-						console.log("la cantidad de items procesados es :"+cantidadItems)
-						console.log("items con MP "+cantidadItemsConMP)
-						console.log("cant items "+cantidadItems)
-						console.log("cant items vendidos con mp "+cantidadItemsVendidosConMP)
-						console.log("cant items vendidos "+cantidadItemsVendidos)
+						console.log("vendidos"+cantidadItemsVendidos)
+						console.log("publicados"+cantidadItemsPublicados)
 						var montoPromedio = ""
 						var porcentajeArticulosConMp = ""
-						var porcentajeDeVentasConMp = ""
-						var porcentajeDeVentasConMe = ""
-						montoPromedio += "<div align=center><h3>" + "Precio sugerido: $"
-								+ sumaTotal / cantidadItems + "</h3></div>"
+						var porcentajeArticulosConMe = ""
+						var popularidadItem = ""
+						montoPromedio += "<div align=center><h3>"
+								+ "Precio sugerido: $" + sumaTotal
+								/ cantidadItems + "</h3></div>"
 						porcentajeArticulosConMp += "<h3>"
 								+ "Porcentaje de articulos con MP: "
-								+ cantidadItemsConMP / cantidadItems
+								+ cantidadItemsConMP / cantidadItems + "</h3>"
+						porcentajeArticulosConMe += "<h3>"
+								+ "Porcentaje de articulos con ME gratis: "
+								+ cantidadItemsConMEGratis / cantidadItems
 								+ "</h3>"
-						porcentajeDeVentasConMp += "<h3>"
-								+ "Los articulos que usan MP representan : "
-								+ cantidadItemsVendidosConMP
-								/ cantidadItemsVendidos + "</h3>"
-						porcentajeDeVentasConMe += "<h3>"
-								+ "Los articulos que usan ME representan : "
-								+ cantidadItemsVendidosConME
-								/ cantidadItemsVendidos + "</h3>"
+						popularidadItem = "<h3>"
+								+ "La popularidad del articulo es: "
+								+ cantidadItemsVendidos
+								/ cantidadItemsPublicados + "</h3>"
 						$("#listado-resultado").append(montoPromedio)
 						$("#listado-resultado").append(porcentajeArticulosConMp)
-						$("#listado-resultado").append(porcentajeDeVentasConMp)
-						$("#listado-resultado").append(porcentajeDeVentasConMe)
+						$("#listado-resultado").append(porcentajeArticulosConMe)
+						$("#listado-resultado").append(popularidadItem)
 					});
 		}
-		
+
 		function verificarEnter(event) {
 			if (event.which == 13) {
 				accionBuscar()
 			}
 		}
-		
+
 		//retorna false cuando se hizo la ultima llamada a la api de mercado libre
 		function procesarEstadisticas(data) {
 			console.log(data.paging)
@@ -131,7 +137,8 @@
 						limit : 200
 					});
 			promise.done(function(data) {
-				if (data.paging.total < cantidadItems) cantidadItems = data.paging.total
+				if (data.paging.total < cantidadItems)
+					cantidadItems = data.paging.total
 				var estadisticaTerminada = procesarEstadisticas(data)
 				if (estadisticaTerminada == false)
 					deferred.resolve() //si procesarEstadisticas devuelve false, la promesa se cumplio
@@ -145,14 +152,11 @@
 			if (item.buying_mode != "auction") {
 				sumaTotal += item.price
 				cantidadItemsVendidos += item.sold_quantity
-				if (item.accepts_mercadopago) {
+				cantidadItemsPublicados += item.available_quantity + item.sold_quantity
+				if (item.accepts_mercadopago)
 					cantidadItemsConMP++
-					cantidadItemsVendidosConMP += item.sold_quantity
-				}
-				if (item.shipping.free_shipping) {
-					cantidadItemsConME++
-					cantidadItemsVendidosConME += item.sold_quantity
-				}
+				if (item.shipping.free_shipping)
+					cantidadItemsConMEGratis++
 			}
 		}
 
