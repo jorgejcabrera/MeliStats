@@ -18,14 +18,14 @@
 					<ul class="nav navbar-nav navbar-right">
 						<sec:ifNotLoggedIn>
 							<div class="btn-group">
-								<button type="button" class="btn btn-danger navbar-btn" aria-expanded="false">Login</button>
+								<a class="btn btn-danger navbar-btn" aria-expanded="false"href="${createLink(controller:'login',action:'auth') }">Login</a>
 							</div>
 							<div class="btn-group">
-								<button type="button" class="btn btn-danger navbar-btn" aria-expanded="false">Registrarse</	button>
+								<button type="button" class="btn btn-danger navbar-btn" aria-expanded="false">Registrarse</button>
 							</div>
 						</sec:ifNotLoggedIn>	
 						<sec:ifLoggedIn>
-							<button type="button" class="btn btn-danger navbar-btn" aria-expanded="false">Logout</button>
+							<a type="button" class="btn btn-danger navbar-btn" aria-expanded="false" href="${createLink(controller:'logout') }">Logout</a>
 							<div class="btn-group">
 								<button type="button" class="btn btn-danger navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Vender <span class="caret"></span></button>
 								<ul class="dropdown-menu" role="menu">
