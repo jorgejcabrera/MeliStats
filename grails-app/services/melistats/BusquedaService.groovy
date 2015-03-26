@@ -2,6 +2,7 @@ package melistats
 
 import grails.transaction.Transactional
 import groovy.json.JsonSlurper
+import java.util.List;
 
 @Transactional
 class BusquedaService {
@@ -10,6 +11,7 @@ class BusquedaService {
 	def slurper = new JsonSlurper()
     def muestraService
     def preferenciaService
+    def usuarioService
 
     def getDatos(nombreBusqueda)
     {
@@ -44,10 +46,16 @@ class BusquedaService {
         //si la busqueda ya existe se lee la previamente creada
         def busqueda = Busqueda.findByDescripcion(consulta)?: new Busqueda(descripcion: consulta, fechaInicioBusqueda: new Date()).save(flush:true)
         
+        print params.guardarBusqueda
 
-        if(params.guardarBusqueda == 'on')
+        if(params.guardarBusqueda == "true")
         {
-            //guardar la busqueda en el usuario actual
+            def actual = usuarioService.usuarioActual()
+            
+            actual.busquedas.find{it == busqueda}?: actual.addToBusquedas(busqueda)
+            actual.save(flush:true, failOnError: true)
+            println " test ${actual.busquedas}"
+            
         }
 
         //si no hay muestras muestraSerice.agregarMuestra() crea una, la agrega a la busqueda y la devuelve
@@ -64,11 +72,6 @@ class BusquedaService {
         else
         {
             mejoresResultados = datos.results[0..4]
-        }
-
-        if(params.checkout == 'on')
-        {
-            //usuario actual agregar a busqueda
         }
 
     	return [status: 'success', muestra: muestra, mejoresResultados: mejoresResultados]

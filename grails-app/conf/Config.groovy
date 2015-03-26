@@ -13,6 +13,8 @@
 
 
 grails.plugin.springsecurity.logout.postOnly = false
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/miPerfil'
+grails.plugin.springsecurity.failureHandler.defaultFailureUrl = '/login/auth'
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 

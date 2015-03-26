@@ -39,7 +39,7 @@ function ejecutarBusqueda()
 
 		textoBusqueda : $('#busqueda').val(),
 		preferencia : $('#preferencia').val(),
-		guardarBusqueda : $('#checkbox').val()
+		guardarBusqueda : $('#checkbox').is(':checked')
 
 	}
 
@@ -104,7 +104,7 @@ function alertar(tipo, contenido)
 
 function mostrarLinkEstadisticas()
 {
-	var link = '<h4><a href="/MeliStats/estadisticas/'+ultimabusqueda+'">Ver Estadsitcas Completas</a></h4>'
+	var link = '<h4><a href="/MeliStats/estadisticas/'+ultimabusqueda+'">Ver Estadísitcas Completas</a></h4>'
 	$('#url-datos').append(link)
 }
 
