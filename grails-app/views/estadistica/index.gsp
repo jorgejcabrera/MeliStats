@@ -93,7 +93,7 @@
         ]);
 
         var options = {
-          title: 'Estadísticas de la busqueda a lo largo del tiempo',
+          title: 'Precios a lo largo del tiempo',
           curveType: 'function',
           legend: { position: 'bottom' }
         }
