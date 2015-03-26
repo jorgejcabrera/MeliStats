@@ -8,7 +8,7 @@
 <body>
 	<g:hiddenField id="offset" name="offset" value="0" />
 	<g:hiddenField id="maxRows" name="maxRows" value="0" />
-	<div style="position: relative; top: 50px; left: 0px">
+	<div style="  position: relative; top: 50px; left: 4px; width: 99%;">
 		<section class="panel panel-primary">
 			<header>
 				<h2>¿Qué desea vender?</h2>
@@ -28,7 +28,7 @@
 						</div>
 					</div>
 				</div>
-				<div align="center" class="well well-sm" style="margin-left: 5px;| margin-top: 5px;">
+				<div align="center" class="well well-sm" style="margin-top: 5px;">
 				<div align="center" id="listado-resultado"></div>
 				<div id="piechart" style="width: 700px; height: 300px;"></div>
 				<div id="piechart2" style="width: 700px; height: 300px;"></div>
