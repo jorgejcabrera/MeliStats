@@ -1,9 +1,10 @@
 package melistats
 import grails.plugin.springsecurity.annotation.*
 
-@Secured(['permitAll'])
+@Secured(['ROLE_USER'])
 class MiPerfilController {
 
+	def usuarioService
 
     def nuevaPref(){
      	if(Preferencia.findByNombrePref(params.nombrePref)==null){
@@ -14,6 +15,11 @@ class MiPerfilController {
 
      		Preferencia p1 = new Preferencia(nombrePref: nombre, precioPref: precio, envioPref: envio, reputacionPref: reputacion);
      		p1.save(failOnError:true)
+
+     		def actual = usuarioService.usuarioActual()
+     		actual.addToPreferencias(p1)
+     		actual.save(flush: true, failOnError: true)
+
      		flash.message = "success"
      		redirect(action: 'index')
      	}else{
@@ -25,6 +31,8 @@ class MiPerfilController {
 	def eliminarPref(){
 		def idPreferencia = params.idPreferencia
 		def pref = Preferencia.get(idPreferencia as long)
+		usuarioService.usuarioActual().removeFromPreferencias(pref)
+		usuarioService.usuarioActual().save(flush:true)
 		pref.delete(flush:true, failOnError:true)
 		redirect(action:'index')
 
@@ -43,7 +51,7 @@ class MiPerfilController {
 
 
     def index() {
-    	[preferencias:Preferencia.list()]
+    	[preferencias:usuarioService.usuarioActual().preferencias]
     }
 
 

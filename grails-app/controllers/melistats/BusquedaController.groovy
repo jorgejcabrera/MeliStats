@@ -3,16 +3,15 @@ package melistats
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.*
 
-@Secured(['permitAll'])
+@Secured(['ROLE_USER'])
 class BusquedaController {
 
 	def busquedaService
+    def usuarioService
 
     def index() { 
 
-    	//leer el usuario cuando este configurado SpringSecurity,
-    	//de ahi conseguir las preferencias.
-    	[preferencias:Preferencia.list()]
+    	[preferencias:usuarioService.usuarioActual().preferencias]
 
     }
 

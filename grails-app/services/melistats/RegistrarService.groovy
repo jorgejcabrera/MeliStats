@@ -13,7 +13,7 @@ class RegistrarService {
     		
                 def usuarioSpring = new User(username:user, password:pass)
         		usuarioSpring.save(flush:true, failOnError: true)
-            	UserRole.create(usuarioSpring, Role.get(0), true)
+            	UserRole.create(usuarioSpring, Role.findByAuthority('ROLE_USER'), true)
                 def usuarioPerfil = new Usuario(nombre:user, springUser:usuarioSpring, busquedas:[], preferencias:[])
                 usuarioPerfil.save(flush: true, failOnError: true)
             }

@@ -1,7 +1,7 @@
 package melistats
 import grails.plugin.springsecurity.annotation.*
 
-@Secured(['permitAll'])
+@Secured(['ROLE_USER'])
 class VenderController {
 
     def index() {
