@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="_layout" />
+		<meta name="layout" content="principal_layout" />
 		<title>MeliStats</title>
 	</head>
 	<body>
