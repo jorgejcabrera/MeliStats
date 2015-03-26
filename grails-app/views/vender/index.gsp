@@ -196,23 +196,6 @@
 					.getElementById('piechart3'));
 			chart.draw(data, options);
 		}
-
-		/*google.load("visualization", "1", {
-			packages : [ "corechart" ]
-		});
-		google.setOnLoadCallback(dibujarArticulosConMe);
-		function dibujarArticulosConMe(porcentajeArticulosConMe) {
-			var data = google.visualization.arrayToDataTable([
-					[ 'MercadoEnvio', 'Porcentaje' ],
-					[ 'Acepta', (porcentajeArticulosConMe) ],
-					[ 'No Acepta', (100 - porcentajeArticulosConMe) ], ]);
-			var options = {
-				title : 'Articulos con mercado de pago'
-			};
-			var chart = new google.visualization.PieChart(document
-					.getElementById('piechart'));
-			chart.draw(data, options);
-		}*/
 	</script>
 </body>
 </html>
