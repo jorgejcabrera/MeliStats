@@ -3,6 +3,13 @@
 <head>
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <meta name="layout" content="_layout" />
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	google.load("visualization", "1", {
+		packages : [ "corechart" ]
+	});
+	google.setOnLoadCallback(drawChart);
+</script>
 </head>
 <body>
 	<g:hiddenField id="offset" name="offset" value="0" />
@@ -19,20 +26,20 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="input-group">
-							<input type="text" class="form-control" id="textBusqueda" placeholder="sugerencias para:">
-							<span class="input-group-btn">
+							<input type="text" class="form-control" id="textBusqueda"
+								placeholder="sugerencias para:"> <span
+								class="input-group-btn">
 								<button class="btn btn-default" id="botonBuscador" type="button">Buscar</button>
 							</span>
 						</div>
 					</div>
 				</div>
-				<div  class="well well-sm" id="listado-resultado">
-				</div>
+				<div class="well well-sm" id="listado-resultado"></div>
 			</section>
 			<aside
 				style="font-style: arial; float: right; width: 34%; border: 0px solid">
-				<h4> Posibles compradores</h4>	
-				<p style="height:415px">
+				<h4>Posibles compradores</h4>
+				<p style="height: 415px">
 					<g:each in="${listaEmpleados}" var="unEmpleado">
 						<ul style="width: 250px; margin-top: -130px;">
 							<li>
@@ -77,6 +84,8 @@
 			}
 			calcular(0).done(
 					function() {
+						console.log("vendidos"+cantidadItemsVendidos)
+						console.log("publicados"+cantidadItemsPublicados)
 						var montoPromedio = ""
 						var porcentajeArticulosConMp = ""
 						var porcentajeArticulosConMe = ""
@@ -96,10 +105,8 @@
 								+ cantidadItemsVendidos
 								/ cantidadItemsPublicados + "</h3>"
 						$("#listado-resultado").append(montoPromedio)
-						$("#listado-resultado")
-								.append(porcentajeArticulosConMp)
-						$("#listado-resultado")
-								.append(porcentajeArticulosConMe)
+						$("#listado-resultado").append(porcentajeArticulosConMp)
+						$("#listado-resultado").append(porcentajeArticulosConMe)
 						$("#listado-resultado").append(popularidadItem)
 					});
 		}
@@ -145,7 +152,7 @@
 			if (item.buying_mode != "auction") {
 				sumaTotal += item.price
 				cantidadItemsVendidos += item.sold_quantity
-				cantidadItemsPublicados += item.available_quantity
+				cantidadItemsPublicados += item.available_quantity + item.sold_quantity
 				if (item.accepts_mercadopago)
 					cantidadItemsConMP++
 				if (item.shipping.free_shipping)
