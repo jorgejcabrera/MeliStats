@@ -54,7 +54,8 @@ class BusquedaService {
             
             actual.busquedas.find{it == busqueda}?: actual.addToBusquedas(busqueda)
             actual.save(flush:true, failOnError: true)
-            println " test ${actual.busquedas}"
+
+            actual.busquedas.each{println it}
             
         }
 
