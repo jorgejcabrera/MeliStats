@@ -4,11 +4,12 @@
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <meta name="layout" content="_layout" />
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript"
+	src="${resource(dir:'js', file: 'busquedaVenta.js')}"></script>
 <script type="text/javascript">
 	google.load("visualization", "1", {
 		packages : [ "corechart" ]
 	});
-	google.setOnLoadCallback(drawChart);
 </script>
 </head>
 <body>
