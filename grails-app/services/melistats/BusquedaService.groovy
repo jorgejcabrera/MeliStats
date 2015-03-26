@@ -46,12 +46,15 @@ class BusquedaService {
         //si la busqueda ya existe se lee la previamente creada
         def busqueda = Busqueda.findByDescripcion(consulta)?: new Busqueda(descripcion: consulta, fechaInicioBusqueda: new Date()).save(flush:true)
         
+        print params.guardarBusqueda
 
-        if(params.guardarBusqueda)
+        if(params.guardarBusqueda == "true")
         {
             def actual = usuarioService.usuarioActual()
             
             actual.busquedas.find{it == busqueda}?: actual.addToBusquedas(busqueda)
+            actual.save(flush:true, failOnError: true)
+            println " test ${actual.busquedas}"
             
         }
 
