@@ -8,7 +8,6 @@ class UsuarioService {
 	def springSecurityService
 
     def usuarioActual() {
-
     	return Usuario.findBySpringUser(springSecurityService.currentUser)
 
     }
