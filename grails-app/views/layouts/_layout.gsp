@@ -16,19 +16,30 @@
         		</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<div class="btn-group">
-							<button type="button" class="btn btn-danger navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Vender <span class="caret"></span></button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="${createLink(controller:'vender',action:'index') }">Sugerencias</a></li>
-							</ul>
-						</div>
-						<div class="btn-group">
-							<button type="button" class="btn btn-danger navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Comprar <span class="caret"></span></button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="${createLink(controller:'busqueda', action: 'index')}">Recomendaciones</a></li>
-								<li><a href="${createLink(controller:'miPerfil',action:'index') }">Configurar perfil</a></li>
-							</ul>
-						</div>
+						<sec:ifNotLoggedIn>
+							<div class="btn-group">
+								<button type="button" class="btn btn-danger navbar-btn" aria-expanded="false">Login</button>
+							</div>
+							<div class="btn-group">
+								<button type="button" class="btn btn-danger navbar-btn" aria-expanded="false">Registrarse</	button>
+							</div>
+						</sec:ifNotLoggedIn>	
+						<sec:ifLoggedIn>
+							<button type="button" class="btn btn-danger navbar-btn" aria-expanded="false">Logout</button>
+							<div class="btn-group">
+								<button type="button" class="btn btn-danger navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Vender <span class="caret"></span></button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="${createLink(controller:'vender',action:'index') }">Sugerencias</a></li>
+								</ul>
+							</div>
+							<div class="btn-group">
+								<button type="button" class="btn btn-danger navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Comprar <span class="caret"></span></button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="${createLink(controller:'busqueda', action: 'index')}">Recomendaciones</a></li>
+									<li><a href="${createLink(controller:'miPerfil',action:'index') }">Configurar perfil</a></li>
+								</ul>
+							</div>
+						</sec:ifLoggedIn>	
 					</ul>
 				</div>
 			</div>
