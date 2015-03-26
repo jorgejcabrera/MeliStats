@@ -20,7 +20,7 @@ class MiPerfilController {
 		}
 	}
 
-	def deletePref(){
+	def eliminarPref(){
 		def idPreferencia = params.idPreferencia
 		def pref = Preferencia.get(idPreferencia as long)
 		pref.delete(flush:true, failOnError:true)
@@ -28,14 +28,14 @@ class MiPerfilController {
 
 	}
 
-	def editPref(){
+
+	def guardarCambiosPref(){
 		def idPreferencia = params.idPreferencia
 		def pref = Preferencia.get(idPreferencia as long)
-		pref.nombrePref = params.nombrePref
-		pref.precioPref = params.precioPref
-		pref.envioPref = params.envioPref
-		pref.reputacionPref = params.reputacionPref
-		pref.save(failOnError:true)
+		pref.precioPref = Integer.parseInt(params.precioPref)
+		pref.envioPref = Integer.parseInt(params.envioPref)
+		pref.reputacionPref = Integer.parseInt(params.reputacionPref)
+		pref.save(flush:true, failOnError:true)
 		redirect(action:'index')
 	}
 
