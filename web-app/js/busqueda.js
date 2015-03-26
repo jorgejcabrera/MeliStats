@@ -39,7 +39,7 @@ function ejecutarBusqueda()
 
 		textoBusqueda : $('#busqueda').val(),
 		preferencia : $('#preferencia').val(),
-		guardarBusqueda : $('#checkbox').val()
+		guardarBusqueda : $('#checkbox').checked()
 
 	}
 
