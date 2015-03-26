@@ -1,7 +1,9 @@
 package melistats
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.*
 
+@Secured(['permitAll'])
 class BusquedaController {
 
 	def busquedaService

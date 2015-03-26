@@ -4,6 +4,10 @@ class BootStrap {
 
     def init = { servletContext ->
 
+        def rol   = new Role(authority:'ROLE_USER').save(flush:true, failOnError: true)
+        def test = new User(username:'test', password:'test').save(flush:true, failOnError: true)
+        UserRole.create(test, rol, true)
+
     	def pref = [
     	new Preferencia(
     		 nombrePref : 'precio',
@@ -26,6 +30,8 @@ class BootStrap {
 			 reputacionPref : 0,
 
     		).save(flush:true,failOnError:true)]
+
+
 
     }
     def destroy = {

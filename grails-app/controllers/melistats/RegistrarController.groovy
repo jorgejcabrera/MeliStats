@@ -2,7 +2,7 @@ package melistats
 import grails.plugin.springsecurity.annotation.*
 
 @Secured(['permitAll'])
-class PrincipalController {
+class RegistrarController {
 
     def index() { }
 }

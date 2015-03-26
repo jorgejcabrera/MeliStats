@@ -16,19 +16,34 @@
         		</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<div class="btn-group">
-							<button type="button" class="btn btn-danger navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Vender <span class="caret"></span></button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="${createLink(controller:'vender',action:'index') }">Sugerencias</a></li>
-							</ul>
-						</div>
-						<div class="btn-group">
-							<button type="button" class="btn btn-danger navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Comprar <span class="caret"></span></button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="${createLink(controller:'busqueda', action: 'index')}">Recomendaciones</a></li>
-								<li><a href="${createLink(controller:'miPerfil',action:'index') }">Configurar perfil</a></li>
-							</ul>
-						</div>
+						<sec:ifNotLoggedIn>
+							<div class="btn-group">
+								<button type="button" class="btn btn-danger navbar-btn" aria-expanded="false">Registrarse</button>
+							</div>
+							<div class="btn-group">
+								<a class="btn btn-danger navbar-btn" aria-expanded="false"href="${createLink(controller:'login',action:'auth') }">Login</a>
+							</div>
+
+						</sec:ifNotLoggedIn>	
+						<sec:ifLoggedIn>
+							<div class="btn-group">
+								<a class="btn btn-danger navbar-btn" aria-expanded="false"href="${createLink(controller:'miPerfil', action:'index') }">Mi perfil</a>
+							</div>
+							<div class="btn-group">
+								<button type="button" class="btn btn-danger navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Vender <span class="caret"></span></button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="${createLink(controller:'vender',action:'index') }">Sugerencias</a></li>
+								</ul>
+							</div>
+							<div class="btn-group">
+								<button type="button" class="btn btn-danger navbar-btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Comprar <span class="caret"></span></button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="${createLink(controller:'busqueda', action: 'index')}">Recomendaciones</a></li>
+									<li><a href="${createLink(controller:'miPerfil',action:'index') }">Configurar perfil</a></li>
+								</ul>
+							</div>
+							<a type="button" class="btn btn-danger navbar-btn" aria-expanded="false" href="${createLink(controller:'logout') }">Logout</a>
+						</sec:ifLoggedIn>	
 					</ul>
 				</div>
 			</div>

@@ -53,46 +53,6 @@
 				                       				<button id="botonAgregarPreferencia" class="btn btn-danger" controller="MiPerfil" action="nuevaPref"><a style="color: white">Agregar Preferencia</a> </button>
 			     				               </g:form>  
 	    
-	    		                				<script>
-													function colorearCampo() {
-														var campo = $(this);
-														var contenido = campo.val();
-														if(contenido != "")
-															campo.removeClass("invalid").addClass("valid");
-														else
-														   	campo.removeClass("valid").addClass("invalid");
-													}
-
-													$("#campoNombre").on("input",colorearCampo);
-													$("#campoApellido").on("input",colorearCampo);
-													$("#botonAgregarEmpleado").click(function (event){
-							    					var validadoOK = true;
-													var elemento = $("#campoNombre");
-													if(!elemento.hasClass("valid")){
-														validadoOK = false;
-													}
-
-													var elemento = $("#campoPrecio");
-													if(!elemento.hasClass("valid")){
-														validadoOK = false;
-													}
-
-
-													var elemento = $("#campoEnvio");
-													if(!elemento.hasClass("valid")){
-														validadoOK = false;
-													}
-
-
-													var elemento = $("#campoReputacion");
-													if(!elemento.hasClass("valid")){
-														validadoOK = false;
-													}
-
-													if(!validadoOK){
-														event.preventDefault();
-													}
-												</script>
 					         				</div>  
 					      				</div>
 					    			</div>
@@ -106,25 +66,37 @@
 
 					<g:each in="${preferencias}" var="pref">
 						<div class="jumbotron" style="width: 450px; height: 250px; position: relative; margin-left: -50px; margin-bottom: -11px;">
-							<div style="margin-top: -38px; margin-left: 5px;"> <h4 id="campoNombre${pref.id}">${pref.nombrePref}</h4></div>
-							<div style="margin-left: 5px;"> Importancia precio: <input type="range" min="0" max"10" placeholder="Elija la importancia que le da al precio" id="campoPrecio${pref.id}" name="precioPref" value="${pref.precioPref}" disabled></div>
-							<div style="margin-left: 5px;"> Importancia envío gratis: <input type="range" min="0" max"10" placeholder="Elija la importancia que le da al precio" id="campoEnvio${pref.id}" name="precioPref" value="${pref.envioPref}" disabled></div>
-							<div style="margin-left: 5px;"> Importancia reputación del vendedor: <input type="range" min="0" max"10" placeholder="Elija la importancia que le da al precio" id="campoVendedor${pref.id}" name="precioPref" value="${pref.reputacionPref}" disabled></div>
+							<form id="formPref${pref.id}" action="${createLink(controller: 'miPerfil', action: 'guardarCambiosPref')}" method="post">
+								<input type="hidden" name="idPreferencia" value="${pref.id}" /> 
+								<div style="margin-top: -38px; margin-left: 5px;"> <input type="hidden" id="campoNombre${pref.id}">${pref.nombrePref}</div>
+								<div style="margin-left: 5px;"> Importancia precio: <input type="range" min="0" max"10" id="campoPrecio${pref.id}" name="precioPref" value="${pref.precioPref}" disabled></div>
+								<div style="margin-left: 5px;"> Importancia envío gratis: <input type="range" min="0" max"10" id="campoEnvio${pref.id}" name="envioPref" value="${pref.envioPref}" disabled></div>
+								<div style="margin-left: 5px;"> Importancia reputación del vendedor: <input type="range" min="0" max"10" id="campoVendedor${pref.id}" name="reputacionPref" value="${pref.reputacionPref}" disabled></div>
 
+							</form>
 							<script>
-								function editarPreferencias(){
+								function editarPreferencias${pref.id}(){
 									$("#campoPrecio${pref.id}").removeAttr('disabled')
 									$("#campoEnvio${pref.id}").removeAttr('disabled')
 									$("#campoVendedor${pref.id}").removeAttr('disabled')
+									$("#btnGuardar${pref.id}").removeAttr('disabled')
 								}
 							</script>
 
-							<input type="submit" class="btn btn-danger" style="margin-left: 5px; margin-top:10px;"value="Editar" id="btnEdit${pref.id}" onClick="editarPreferencias()" name="editar" />
+							<input type="submit" class="btn btn-danger" style="margin-left: 5px; margin-top:10px;"value="Editar" id="btnEditar${pref.id}" onClick="editarPreferencias${pref.id}()" name="editar" />
+
+							<script>
+								function guardarCambios${pref.id}(){
+									$("#formPref${pref.id}").submit()
+								}
+							</script>
+							
+							<input type="submit" class="btn btn-danger" style="margin-left: 90px; margin-top:10px;"value="Guardar cambios" id="btnGuardar${pref.id}" onClick="guardarCambios${pref.id}()" name="guardarCambios" disabled/>
 							
 
-							<g:form controller="MiPerfil" action="deletePref">
+							<g:form controller="MiPerfil" action="eliminarPref">
 								<input type="hidden" name="idPreferencia" value="${pref.id}" />
-								<input type="submit" class="btn btn-danger" style="margin-left: 76px; margin-top: -56px;" value="Eliminar" id="btnDelete" controller="MiPerfil" action="deletePref" name="deletePref"/>
+								<input type="submit" class="btn btn-danger" style="margin-left: 76px; margin-top: -56px;" value="Eliminar" id="btnEliminar" controller="MiPerfil" action="eliminarPref" name="EliminarPref"/>
 							</g:form>
 						</div><br><br>
 					</g:each>
