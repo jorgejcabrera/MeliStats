@@ -24,57 +24,69 @@ class BusquedaService {
     	return resultados
     }
 
+    /*
+    * Recibe en params: 
+    * textoBusuqeda, la consulta de busqueda
+    * preferencia, la id de la preferencia seleccionada (o null si no se eligio)
+    * guardarBusqueda, puede valer 'true' o 'false' e indica si guardar la busqueda
+    * en el perfil del usuario
+    */
     def buscar(params)
-    {
-    	/*
-    	-Precio promedio
-    	-porcentaje con envio gratis y sin etc
-    	- '' con mercado pago
-    	-porcentaje de las ventas de los tipos de usuario(bronze, plata, oro, etc)
-    	-porcentaje de ventas promedio por publicacion
-    	*/
+    {   	
 
         def consulta = params.textoBusqueda
         def datos = getDatos(consulta)
 
+        // si el API no tiene resultados para la buqueda, devolver como estado 'no_results'
         if(datos.results == [] || datos == null )
         {
             return [status: 'no_results']
         }
 
 
-        //si la busqueda ya existe se lee la previamente creada
+        //si la busqueda ya existe se lee la previamente creada, de lo contrario se crea
         def busqueda = Busqueda.findByDescripcion(consulta)?: new Busqueda(descripcion: consulta, fechaInicioBusqueda: new Date()).save(flush:true)
         
+        //si la busqueda se debe guardar en el perfil, 
+        //se busca si existe ya en este usuario. Si existe, no se hace nada; de lo contrario
+        //se guarda en el usuario actual.
         if(params.guardarBusqueda == "true")
         {
-            def actual = usuarioService.usuarioActual()
-            
-            actual.busquedas.find{it == busqueda}?: actual.addToBusquedas(busqueda)
-            actual.save(flush:true, failOnError: true)
-
-            actual.busquedas.each{println it}
-            
+            guardarBusqueda(busqueda)            
         }
 
         //si no hay muestras muestraSerice.agregarMuestra() crea una, la agrega a la busqueda y la devuelve
+        //si no lee la ultima
         def  muestra = busqueda.getUltimaMuestra()?: muestraService.agregarMuestra(busqueda, datos)       
        
 
         //agregar mejores resultados segun preferencia
-        def mejoresResultados, pref = params.preferencia
-
-        if(pref != 'null')
-        {
-            mejoresResultados = preferenciaService.mejoresResultados(datos.results, muestra, Preferencia.get(pref) )
-        }
-        else
-        {
-            mejoresResultados = datos.results[0..4]
-        }
+        def prefId = params.preferencia
+        def mejoresResultados = mejoresResultados(datos.results, muestra, prefId)       
 
     	return [status: 'success', muestra: muestra, mejoresResultados: mejoresResultados]
 
+    }
+
+    def guardarBusqueda(busqueda)
+    {
+        def actual = usuarioService.usuarioActual()
+            
+        actual.busquedas.find{it == busqueda}?: actual.addToBusquedas(busqueda)
+        actual.save(flush:true, failOnError: true)
+    }
+
+    def mejoresResultados(productos, muestra, prefId)
+    {
+        if(prefId != 'null')
+        {
+            def preferencia = Preferencia.get(prefId)
+            return preferenciaService.mejoresResultados(productos, muestra, preferencia)
+        }
+        else
+        {
+            return productos[0..4]
+        }
     }
 
     def actualizarBusquedas()
