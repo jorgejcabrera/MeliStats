@@ -1,5 +1,7 @@
 package melistats
+import grails.plugin.springsecurity.annotation.*
 
+@Secured(['permitAll'])
 class VenderController {
 
     def index() {
