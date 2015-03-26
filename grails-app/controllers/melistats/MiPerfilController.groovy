@@ -49,9 +49,21 @@ class MiPerfilController {
 		redirect(action:'index')
 	}
 
+	def eliminarBusq(){
+		def idBusqueda = params.idBusqueda
+		def busqueda = Busqueda.get(idBusqueda as long)
+		usuarioService.usuarioActual().removeFromBusquedas(busqueda)
+		usuarioService.usuarioActual().save(flush:true, failOnError:true)
+		for(int i=0; i<busqueda.muestras.size()-1;i++){ //VER EL MENOR, O MENOR IGUAL Y SIZE -1
+			busqueda.getUltimaMuestra().delete(flush:true, failOnError:true)
+		}
+		busqueda.delete(flush:true, failOnError:true)
+		redirect(action:'index')
+	}
+
 
     def index() {
-    	[preferencias:usuarioService.usuarioActual().preferencias.sort{it.nombrePref}]
+    	[preferencias:usuarioService.usuarioActual().preferencias.sort{it.nombrePref}, busquedas: usuarioService.usuarioActual().busquedas.sort{it.fechaInicioBusqueda}.reverse(true)]
     }
 
 
