@@ -4,13 +4,6 @@
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <meta name="layout" content="_layout" />
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript"
-	src="${resource(dir:'js', file: 'busquedaVenta.js')}"></script>
-<script type="text/javascript">
-	google.load("visualization", "1", {
-		packages : [ "corechart" ]
-	});
-</script>
 </head>
 <body>
 	<g:hiddenField id="offset" name="offset" value="0" />
@@ -18,9 +11,9 @@
 	<div style="position: relative; top: 50px; left: 0px">
 		<section class="panel panel-primary">
 			<header>
-				<h2>¿Que desea vender?</h2>
+				<h2>¿Qué desea vender?</h2>
 			</header>
-			<p>recomendaciones para la venta de ...</p>
+			<p>Recomendaciones para la venta de ...</p>
 		</section>
 		<article>
 			<section style="float: left; width: 65%; border: 0px solid">
@@ -35,7 +28,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="well well-sm" id="listado-resultado"></div>
+				<div align="center" class="well well-sm" style="margin-left: 5px;| margin-top: 5px;">
+				<div align="center" id="listado-resultado"></div>
+				<div id="piechart" style="width: 700px; height: 300px;"></div>
+				<div id="piechart2" style="width: 700px; height: 300px;"></div>
+				<div id="piechart3" style="width: 700px; height: 300px;"></div>
+				</div>
+				
 			</section>
 			<aside
 				style="font-style: arial; float: right; width: 34%; border: 0px solid">
@@ -62,10 +61,10 @@
 		var deferred
 		var cantidadItems = 1000
 		var sumaTotal = 0
-		var cantidadItemsConMP = 0
-		var cantidadItemsVendidos = 0
-		var cantidadItemsConMEGratis = 0
-		var cantidadItemsPublicados = 0
+		var cantidadItemsConMP = 0.0
+		var cantidadItemsVendidos = 0.0
+		var cantidadItemsConMEGratis = 0.0
+		var cantidadItemsPublicados = 0.0
 		$("#listado-resultado").hide()
 		$("#botonBuscador").click(accionBuscar)
 		$("#textBusqueda").keypress(verificarEnter)
@@ -92,23 +91,12 @@
 						var porcentajeArticulosConMe = ""
 						var popularidadItem = ""
 						montoPromedio += "<div align=center><h3>"
-								+ "Precio sugerido: $" + sumaTotal
-								/ cantidadItems + "</h3></div>"
-						porcentajeArticulosConMp += "<h3>"
-								+ "Porcentaje de articulos con MP: "
-								+ cantidadItemsConMP / cantidadItems + "</h3>"
-						porcentajeArticulosConMe += "<h3>"
-								+ "Porcentaje de articulos con ME gratis: "
-								+ cantidadItemsConMEGratis / cantidadItems
-								+ "</h3>"
-						popularidadItem = "<h3>"
-								+ "La popularidad del articulo es: "
-								+ cantidadItemsVendidos
-								/ cantidadItemsPublicados + "</h3>"
+								+ "<span class='label label-info' >Precio sugerido: $" + (sumaTotal/ cantidadItems).toFixed(2) + "</h3></span></div>"
+						drawChart(cantidadItemsConMP, cantidadItems)
+						drawChart2(cantidadItemsConMEGratis, cantidadItems)
+						drawChart3(cantidadItemsVendidos, cantidadItemsPublicados)
+						//dibujarArticulosConMe(cantidadItemsConMEGratis / cantidadItems * 100)
 						$("#listado-resultado").append(montoPromedio)
-						$("#listado-resultado").append(porcentajeArticulosConMp)
-						$("#listado-resultado").append(porcentajeArticulosConMe)
-						$("#listado-resultado").append(popularidadItem)
 					});
 		}
 
@@ -164,6 +152,67 @@
 		function mostrarError() {
 			$("#respuesta_api").html("<li>Se produjo un errors</li>")
 		}
+		google.load("visualization", "1", {
+			packages : [ "corechart" ]
+		});
+		google.setOnLoadCallback(drawChart);
+		function drawChart(cantidadItemsConMP, cantidadItems) {
+			var data = google.visualization.arrayToDataTable([
+					[ 'MercadoPago', 'Porcentaje' ],
+					[ 'Acepta', (cantidadItemsConMP) ],
+					[ 'No Acepta', (cantidadItems - cantidadItemsConMP) ], ]);
+			var options = {
+				title : 'Articulos con mercado de pago'
+			};
+			var chart = new google.visualization.PieChart(document
+					.getElementById('piechart'));
+			chart.draw(data, options);
+		}
+
+		google.setOnLoadCallback(drawChart2);
+		function drawChart2(cantidadItemsConMEGratis, cantidadItems) {
+			var data = google.visualization.arrayToDataTable([
+					[ 'MercadoEnvio', 'Porcentaje' ],
+					[ 'Gratis', (cantidadItemsConMEGratis) ],
+					[ 'Pago', (cantidadItems - cantidadItemsConMEGratis) ], ]);
+			var options = {
+				title : 'Articulos con mercado envío'
+			};
+			var chart = new google.visualization.PieChart(document
+					.getElementById('piechart2'));
+			chart.draw(data, options);
+		}
+
+		google.setOnLoadCallback(drawChart3);
+		function drawChart3(cantidadItemsVendidos, cantidadItems) {
+			var data = google.visualization.arrayToDataTable([
+					[ 'Popularidad', 'Porcentaje' ],
+					[ 'Vendidos', (cantidadItemsVendidos) ],
+					[ 'Por Vender', (cantidadItems-cantidadItemsVendidos) ], ]);
+			var options = {
+				title : 'Flujo de ventas'
+			};
+			var chart = new google.visualization.PieChart(document
+					.getElementById('piechart3'));
+			chart.draw(data, options);
+		}
+
+		/*google.load("visualization", "1", {
+			packages : [ "corechart" ]
+		});
+		google.setOnLoadCallback(dibujarArticulosConMe);
+		function dibujarArticulosConMe(porcentajeArticulosConMe) {
+			var data = google.visualization.arrayToDataTable([
+					[ 'MercadoEnvio', 'Porcentaje' ],
+					[ 'Acepta', (porcentajeArticulosConMe) ],
+					[ 'No Acepta', (100 - porcentajeArticulosConMe) ], ]);
+			var options = {
+				title : 'Articulos con mercado de pago'
+			};
+			var chart = new google.visualization.PieChart(document
+					.getElementById('piechart'));
+			chart.draw(data, options);
+		}*/
 	</script>
 </body>
 </html>
