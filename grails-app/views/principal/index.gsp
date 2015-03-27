@@ -28,33 +28,33 @@
 		<div class="jumbotron"
 			style="float: left; margin-left: 10px; width: 400px; height: 200px; margin-top: 20px; width: 400px; height: 200px;">
 			<g:if test="${busquedasMasRecientes[0] != null}">
-				<div align=center>
-					<h3>
-						<span class='label label-danger'> ${busquedasMasRecientes[0].descripcion}
+				<div align=center class="alert alert-info" role="alert">
+					<h4>
+						<span> ${busquedasMasRecientes[0].descripcion}
 						</span>
-					</h3>
+					</h4>
 				</div>
 			</g:if>
 		</div>
 		<div class="jumbotron"
 			style="float: left; margin-left: 10px; width: 400px; height: 200px; margin-top: 20px;">
 			<g:if test="${busquedasMasRecientes[1] != null}">
-				<div align=center>
-					<h3>
-						<span class='label label-danger'> ${busquedasMasRecientes[1].descripcion}
+				<div align=center class="alert alert-info" role="alert">
+					<h4>
+						<span> ${busquedasMasRecientes[1].descripcion}
 						</span>
-					</h3>
+					</h4>
 				</div>
 			</g:if>
 		</div>
 		<div class="jumbotron"
 			style="float: left; margin-left: 10px; width: 400px; height: 200px; margin-top: 20px;">
 			<g:if test="${busquedasMasRecientes[2] != null}">
-				<div align=center>
-					<h3>
-						<span class='label label-danger'> ${busquedasMasRecientes[2].descripcion}
+				<div align=center class="alert alert-info" role="alert">
+					<h4>
+						<span> ${busquedasMasRecientes[2].descripcion}
 						</span>
-					</h3>
+					</h4>
 				</div>
 			</g:if>
 		</div>
