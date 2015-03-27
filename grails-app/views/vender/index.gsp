@@ -36,26 +36,28 @@
 			<aside style="font-style: arial; float: right; width: 34%; border: 0px solid">
 				<h2 style="margin-left: 33px; margin-bottom: 25px; text-align: left; color: #000;"> <span class="label label-danger">Posibles compradores</h2>
 				<div class="jumbotron" id="div-posibles-compradores" style="width: 275px; margin-left:31px; height: 20px; position: relative;">
-					<div id="posible-comprador-template">
-						<g:form method="POST" controller="vender" action="enviarMail">
-							<div id="nombrePosibleComprador"> #nombreComprador </div>
-							<input type="hidden" name="mailComprador" value="#mailComprador">
-							<input type="hidden" name="mailProducto" value="#nombreProducto">
-							<input type="submit" class="btn btn-default" style="margin-left:54px" value="Contactar">
-						</g:form>
-					</div>
 					<div id="posible-comprador">
-						<g:form method="POST" controller="vender" action="enviarMail">
+						
 							<div id="nombrePosibleComprador"> #nombreComprador </div>
+					</div>
+					<g:form method="POST" controller="vender" action="enviarMail">
 							<input type="hidden" name="mailComprador" value="#mailComprador">
 							<input type="hidden" name="mailProducto" value="#nombreProducto">
 							<input type="submit" class="btn btn-default" style="margin-left:54px" value="Contactar">
 						</g:form>
-					</div>
 				</div>
 			</aside>
 		</article>
 	</div>
+
+	<script type="text/template" id="posible-comprador-template">
+		<g:form method="POST" controller="vender" action="enviarMail">
+			<div id="nombrePosibleComprador"> #nombreComprador </div>
+			<input type="hidden" name="mailComprador" value="#mailComprador">
+			<input type="hidden" name="mailProducto" value="#nombreProducto">
+			<input type="submit" class="btn btn-default" style="margin-left:54px" value="Contactar">
+		</g:form>
+	</script>
 	<script type="text/javascript">
 		/*la funcion calcular retorna una promesa, para ello se crea una variable global llamada deferred
 		de tipo $.Deferred(), se necesito esto para que la suma total se agrege al contenido_tabla una vez 
@@ -77,12 +79,13 @@
 		$("#botonBuscador").click(accionBuscar)
 		$("#textBusqueda").keypress(verificarEnter)
 
-		function accionBuscar() {
-			$("#listado-resultado").show()
-			deferred = $.Deferred()
+		function limpiarPantalla(){
 			var tabla = document.getElementById("listado-resultado") 
 			while (tabla.firstChild) {
 				tabla.removeChild(tabla.firstChild)
+				$("#piechart").empty()
+				$("#piechart2").empty()
+				$("#piechart3").empty()
 				cantidadItems = 1000
 				sumaTotal = 0
 				cantidadItemsConMP = 0
@@ -91,6 +94,13 @@
 				cantidadItemsPublicados = 0
 				itemMasVendido = 0
 			}
+
+		}
+
+		function accionBuscar() {
+			$("#listado-resultado").show()
+			deferred = $.Deferred()
+			limpiarPantalla()
 			calcular(0).done(
 					function() {
 						var montoPromedio = ""
@@ -105,27 +115,30 @@
 		}
 
 		function posiblesCompradores(busqueda){
-			$("#div-posibles-compradores").empty()
-			var descBusq = busqueda
+			$("#posibles-compradores").empty()
 			var promise = $.ajax({
 						url: "${createLink(controller:'vender',action:'posiblesCompradores')}",
-						method: "POST",
-						contentType: "application/json; charset=utf-8",
-						data: descBusq,
+						method: "GET",
+						data: {busqueda:busqueda},
 				});
 			promise.done(mostrarCompradores)
+			promise.fail(function(){
+				console.log("error",arguments)
+			})
 
 		}
 
 		function mostrarCompradores(data){
-			$.each( data.results, agregarResultado )
+			console.log(data)
+			$.each( data.compradores, agregarResultado )
 		}
 
 		function agregarResultado(index, item){
-				var str=$("#posible-comprador-template").html();
+				var str = $("#posible-comprador-template").html();
         		str = str.replace("#nombreComprador", item.nombre);
         		str = str.replace("#mailComprador", item.mail);
         		str = str.replace("#nombreProducto", item.busqueda);
+        		console.log(str)
         		$("#posible-comprador").show();
         		$("#posible-comprador").append(str);
 		}
@@ -134,9 +147,10 @@
 
 		function verificarEnter(event) {
 			if (event.which == 13) {
-				accionBuscar()
 				var busqueda = $("#textBusqueda").val()
-				posiblesCompradores(busqueda)
+				posiblesCompradores(busqueda)	
+				accionBuscar()
+				return false
 			}
 		}
 
