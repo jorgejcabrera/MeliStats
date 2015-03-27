@@ -5,7 +5,7 @@ class ActualizarBusquedasJob {
 	def busquedaService
 
     static triggers = {
-      simple repeatInterval: 60000l // execute job once in 5 seconds
+      simple repeatInterval: 60000l 
     }
 
     def execute() {
