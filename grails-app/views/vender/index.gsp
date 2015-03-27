@@ -64,6 +64,12 @@
 		var cantidadItemsVendidos = 0.0
 		var cantidadItemsConMEGratis = 0.0
 		var cantidadItemsPublicados = 0.0
+		var itemMasVendido = 0.0
+		var precioItemMasVendido = 0.0
+		var tituloItemMasVendido = ""
+		var aceptaMp = false;
+		var envioGratisItemMasVendido = false;
+		var linkItemMasVendido = ""
 		$("#listado-resultado").hide()
 		$("#botonBuscador").click(accionBuscar)
 		$("#textBusqueda").keypress(verificarEnter)
@@ -71,7 +77,7 @@
 		function accionBuscar() {
 			$("#listado-resultado").show()
 			deferred = $.Deferred()
-			var tabla = document.getElementById("listado-resultado")
+			var tabla = document.getElementById("listado-resultado") 
 			while (tabla.firstChild) {
 				tabla.removeChild(tabla.firstChild)
 				cantidadItems = 1000
@@ -80,22 +86,25 @@
 				cantidadItemsVendidos = 0
 				cantidadItemsConMEGratis = 0
 				cantidadItemsPublicados = 0
+				itemMasVendido = 0
 			}
 			calcular(0).done(
 					function() {
-						console.log("vendidos"+cantidadItemsVendidos)
-						console.log("publicados"+cantidadItemsPublicados)
 						var montoPromedio = ""
-						var porcentajeArticulosConMp = ""
-						var porcentajeArticulosConMe = ""
-						var popularidadItem = ""
+						var descripcionItemMasVendido = ""
 						montoPromedio += "<div align=center><h3>"
 								+ "<span class='label label-danger' >Precio sugerido: $" + (sumaTotal/ cantidadItems).toFixed(2) + "</h3></span></div>"
+						descripcionItemMasVendido += "<div align=center><h3>"+ "Caracteristicas del articulo mas vendido"+"</h3></div>"+
+														"<div align=center><h5><a href='"+linkItemMasVendido+"'>"+tituloItemMasVendido+"</a>"+"</h5></div>"+
+														"<div align=center><h5> Precio: $ "+precioItemMasVendido+"</h5></div>"+
+														"<div align=center><h5>"+itemMasVendido+" ventas"+"</h5></div>"+
+														"<div align=center><h5>"+aceptaMp+"</h5></div>"+
+														"<div align=center><h5>"+envioGratisItemMasVendido+"</h5></div>"
 						drawChart(cantidadItemsConMP, cantidadItems)
 						drawChart2(cantidadItemsConMEGratis, cantidadItems)
 						drawChart3(cantidadItemsVendidos, cantidadItemsPublicados)
-						//dibujarArticulosConMe(cantidadItemsConMEGratis / cantidadItems * 100)
 						$("#listado-resultado").append(montoPromedio)
+						$("#listado-resultado").append(descripcionItemMasVendido)
 					});
 		}
 
@@ -141,11 +150,30 @@
 				sumaTotal += item.price
 				cantidadItemsVendidos += item.sold_quantity
 				cantidadItemsPublicados += item.available_quantity + item.sold_quantity
+				if(item.sold_quantity > itemMasVendido)
+					actualizarValoresItemMasVendido(item)
 				if (item.accepts_mercadopago)
 					cantidadItemsConMP++
 				if (item.shipping.free_shipping)
 					cantidadItemsConMEGratis++
 			}
+		}
+
+		function actualizarValoresItemMasVendido(item) {
+			itemMasVendido = item.sold_quantity
+			tituloItemMasVendido = item.title
+			aceptaMp = item.accepts_mercadopago;
+			precioItemMasVendido = item.price
+			linkItemMasVendido = item.permalink
+			if (aceptaMp)
+				aceptaMp = "Acepta mercado de pago"
+			else
+				aceptaMp = "No acepta mercado de pago"
+			envioGratisItemMasVendido = item.shipping.free_shipping;
+			if (envioGratisItemMasVendido)
+				envioGratisItemMasVendido = "Envio gratis"
+			else
+				envioGratisItemMasVendido = "Envio a pago"
 		}
 
 		function mostrarError() {
@@ -184,10 +212,12 @@
 
 		google.setOnLoadCallback(drawChart3);
 		function drawChart3(cantidadItemsVendidos, cantidadItems) {
-			var data = google.visualization.arrayToDataTable([
-					[ 'Popularidad', 'Porcentaje' ],
-					[ 'Vendidos', (cantidadItemsVendidos) ],
-					[ 'Por Vender', (cantidadItems-cantidadItemsVendidos) ], ]);
+			var data = google.visualization
+					.arrayToDataTable([
+							[ 'Popularidad', 'Porcentaje' ],
+							[ 'Vendidos', (cantidadItemsVendidos) ],
+							[ 'Por Vender',
+									(cantidadItems - cantidadItemsVendidos) ], ]);
 			var options = {
 				title : 'Flujo de ventas'
 			};
