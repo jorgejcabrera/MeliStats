@@ -1,5 +1,6 @@
 var endpoint = "/MeliStats/busqueda/buscar"
 var ultimabusqueda = ""
+var buscando = false
 
 $(document).ready(function(){
 
@@ -26,7 +27,7 @@ $(document).ready(function(){
 
 function ejecutarBusqueda()
 {
-	if($('#busqueda').val() == '')
+	if($('#busqueda').val() == '' || buscando)
 	{
 		return
 	}
@@ -44,6 +45,8 @@ function ejecutarBusqueda()
 	}
 
 	var promesa = $.post(endpoint, jsonBusqueda)
+	//inhabilita la busqueda hasta que esta termine
+	buscando = true
 	ultimabusqueda = jsonBusqueda.textoBusqueda
 	promesa.done(mostrarResultados)
 	promesa.fail(mostrarError)
@@ -68,12 +71,14 @@ function mostrarResultados(data)
 	mostrarPrecioPromedio(precioPromedio)
 	mostrarPorcentajeEnvio(porcentajeEnvioGratis)
 	mostrarMejoresResultados(mejoresResultados)
+	buscando = false
 
 }
 
 function mostrarError()
 {
 	alertar('alert-danger','Ha ocurrido un error en la conexión.')
+	buscando = false
 }
 
 function resetAlerta()
