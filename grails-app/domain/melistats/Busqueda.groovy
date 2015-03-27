@@ -11,18 +11,14 @@ class Busqueda {
 		descripcion unique: true
 	}
 
-	def getUltimaMuestra()
-	{
-
-		if(muestras == null || muestras.size() == 0)
-		{
+	def getUltimaMuestra(){
+		if(muestras == null || muestras.size() == 0){
 			return null
 		}
 
 		//devuelve la muestra mas reciente
 		//se podria actualizar si esta ultima fuese muy vieja
 		return muestras.last()
-
 	}
 
 }
