@@ -46,7 +46,7 @@ class BusquedaService {
         {
             return [status: 'no_results']
         }
-
+        datos.results = datos.results.findAll{it.buying_mode != 'auction'}
 
         //si la busqueda ya existe se lee la previamente creada, de lo contrario se crea
         def busqueda = Busqueda.findByDescripcion(consulta)?: new Busqueda(descripcion: consulta, fechaInicioBusqueda: new Date()).save(flush:true)
