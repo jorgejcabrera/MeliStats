@@ -11,7 +11,8 @@ class RegistrarController {
 
     def registrarUsuario()
     {    	
-    	render registrarService.registrarUsuario(params.usuario, params.contrasenia) as JSON
+    	flash.message = registrarService.registrarUsuario(params.nombre, params.cont, params.mail).status
+    	redirect(action:"index")
     }
 
 }

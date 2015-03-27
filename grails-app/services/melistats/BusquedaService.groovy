@@ -39,7 +39,7 @@ class BusquedaService {
     {   	
 
         def consulta = params.textoBusqueda
-        def productos = getDatos(consulta).results // se queda con solo los productos
+        def datos = getDatos(consulta) // se queda con solo los productos
 
         // si el API no tiene resultados para la buqueda, devolver como estado 'no_results'
         if(datos.results == [] || datos == null )
