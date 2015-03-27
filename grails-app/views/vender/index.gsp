@@ -9,7 +9,7 @@
 	<g:hiddenField id="offset" name="offset" value="0" />
 	<g:hiddenField id="maxRows" name="maxRows" value="0" />
 	<div style="  position: relative; top: 50px; left: 4px; width: 99%;">
-			<div>
+			<div style="margin-left: -10%;">
 			<h2 style="margin-left: 169px; margin-bottom: 7px;">¿Qué desea vender?</h2>
 				<div class="row">
 					<div class="col-lg-6"   style="margin-left: 461px;">
@@ -104,14 +104,14 @@
 					});
 		}
 
-		function posiblesCompradores(String busqueda){
+		function posiblesCompradores(busqueda){
 			$("#div-posibles-compradores").empty()
 			var descBusq = busqueda
 			var promise = $.ajax({
 						url: "${createLink(controller:'vender',action:'posiblesCompradores')}",
 						method: "POST",
 						contentType: "application/json; charset=utf-8",
-						data: [nombreBusqueda: descBusq],
+						data: descBusq,
 				});
 			promise.done(mostrarCompradores)
 
@@ -191,14 +191,14 @@
 			var envioGratisItemMasVendido = ""
 			descripcionItemMasVendido = ""
 			if (item.accepts_mercadopago)
-				aceptaMp = "Acepta mercado de pago"
+				aceptaMp = "Acepta MercadoPago"
 			else
-				aceptaMp = "No acepta mercado de pago"
+				aceptaMp = "No acepta MercadoPago"
 			if (item.shipping.free_shipping)
 				envioGratisItemMasVendido = "Envio gratis"
 			else
-				envioGratisItemMasVendido = "Envio pago"
-			descripcionItemMasVendido += "<div align=center><h3>"+ "Item mas vendido acorde a tu busqueda"+"</h3></div>"+
+				envioGratisItemMasVendido = "Envío pago"
+			descripcionItemMasVendido += "<div align=center><h3>"+ "Item más vendido acorde a tu búsqueda"+"</h3></div>"+
 				"<div align=center><h5><a href='"+item.permalink+"'>"+item.title+"</a>"+"</h5></div>"+
 				"<div align=center><h5> Precio: $ "+item.price+"</h5></div>"+
 				"<div align=center><h5>"+item.sold_quantity+" ventas"+"</h5></div>"+
