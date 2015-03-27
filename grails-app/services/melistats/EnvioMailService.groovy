@@ -6,7 +6,7 @@ import grails.transaction.Transactional
 class EnvioMailService {
 
 	def usuarioService
-    def enviar(def mailUser, def producto) {
+    def enviar(mailUser, producto) {
     	sendMail {
 			to mailUser
 			subject "MeliStats - Vendedor por publicar "+producto+''
