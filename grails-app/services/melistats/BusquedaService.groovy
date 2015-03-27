@@ -39,7 +39,7 @@ class BusquedaService {
     {   	
 
         def consulta = params.textoBusqueda
-        def datos = getDatos(consulta)
+        def productos = getDatos(consulta).results // se queda con solo los productos
 
         // si el API no tiene resultados para la buqueda, devolver como estado 'no_results'
         if(datos.results == [] || datos == null )
@@ -112,5 +112,13 @@ class BusquedaService {
 		def ultimasBusquedasRealizadas = Busqueda.findByFechaInicioBusquedaBetween(fechaReferencia,fechaActual);
 		return ultimasBusquedasRealizadas
 	}
+
+    def posiblesCompradoresVender(String busqueda){
+        def busquedaU = busqueda
+        def listaCompradores = Usuario.list().find{
+            (it.busquedas.descripcion==busquedaU)
+        }
+        return listaCompradores
+    }
 
 }
