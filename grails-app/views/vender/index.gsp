@@ -9,26 +9,23 @@
 	<g:hiddenField id="offset" name="offset" value="0" />
 	<g:hiddenField id="maxRows" name="maxRows" value="0" />
 	<div style="  position: relative; top: 50px; left: 4px; width: 99%;">
-		<section class="panel panel-primary">
-			<header>
-				<h2>¿Qué desea vender?</h2>
-			</header>
-			<p>Recomendaciones para la venta de ...</p>
-		</section>
-		<article>
-			<section style="float: left; width: 65%; border: 0px solid">
+			<div>
+			<h2 style="margin-left: 169px; margin-bottom: 7px;">¿Qué desea vender?</h2>
 				<div class="row">
-					<div class="col-lg-6">
-						<div class="input-group">
+					<div class="col-lg-6"   style="margin-left: 461px;">
+						<div class="input-group" style="margin-top: -38px; margin-left: 18px;">
 							<input type="text" class="form-control" id="textBusqueda"
-								placeholder="sugerencias para:"> <span
+								placeholder="Escriba el producto para el cual quiera obtener sugerencias de venta"> <span
 								class="input-group-btn">
-								<button class="btn btn-default" id="botonBuscador" type="button">Buscar</button>
+								<button class="btn btn-danger" style="" id="botonBuscador" type="button">Buscar</button>
 							</span>
 						</div>
 					</div>
 				</div>
-				<div align="center" class="well well-sm" style="margin-top: 5px;">
+			</div>
+		<article>
+			<section style="float: left; width: 65%; border: 0px solid">
+				<div align="center" class="well well-sm" style="margin-top: 11px; margin-left:74px">
 				<div align="center" id="listado-resultado"></div>
 				<div id="piechart" style="width: 700px; height: 300px;"></div>
 				<div id="piechart2" style="width: 700px; height: 300px;"></div>
@@ -36,19 +33,21 @@
 				</div>
 				
 			</section>
-			<aside
-				style="font-style: arial; float: right; width: 34%; border: 0px solid">
-				<h4>Posibles compradores</h4>
-				<p style="height: 415px">
+			<aside style="font-style: arial; float: right; width: 34%; border: 0px solid">
+
+				<h2 style="margin-left: 33px; margin-bottom: 25px; text-align: left; color: #000;"> <span class="label label-danger">Posibles compradores</h2>
+			<!--	<p style="height: 415px"> -->
 					<g:each in="${listaEmpleados}" var="unEmpleado">
-						<ul style="width: 250px; margin-top: -130px;">
+					<div class="jumbotron" style="width: 275px; margin-left:31px; height: 20px; position: relative;">
+						<ul style="width: 250px;   margin-top: -22px;">
 							<li>
 								${unEmpleado}
-								<button class="btn btn-default" type="button">Contactar</button>
+								<button class="btn btn-default" style="margin-left:54px" type="button">Contactar</button>
 							</li>
 						</ul>
+					</div>
 					</g:each>
-				</p>
+				<!--</p> -->
 			</aside>
 		</article>
 	</div>
@@ -91,7 +90,7 @@
 						var porcentajeArticulosConMe = ""
 						var popularidadItem = ""
 						montoPromedio += "<div align=center><h3>"
-								+ "<span class='label label-info' >Precio sugerido: $" + (sumaTotal/ cantidadItems).toFixed(2) + "</h3></span></div>"
+								+ "<span class='label label-danger' >Precio sugerido: $" + (sumaTotal/ cantidadItems).toFixed(2) + "</h3></span></div>"
 						drawChart(cantidadItemsConMP, cantidadItems)
 						drawChart2(cantidadItemsConMEGratis, cantidadItems)
 						drawChart3(cantidadItemsVendidos, cantidadItemsPublicados)

@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="_layout"/>
-		<title>Búsuqeda</title>
+		<title>Búsqueda</title>
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" src="${resource(dir:'js', file: 'busqueda.js')}"></script>
 		<script type="text/javascript">
