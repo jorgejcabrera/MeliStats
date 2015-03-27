@@ -31,8 +31,9 @@
 
 				<p class="form-group">
 					<input type='submit' class='btn btn-danger'id="submit" value='Login'/>
-				</p>
+				</p>		
 			</form>
+			
 		</center>
 	</div>
 </div>
