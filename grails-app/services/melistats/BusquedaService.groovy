@@ -113,11 +113,9 @@ class BusquedaService {
 		return ultimasBusquedasRealizadas
 	}
 
-    def posiblesCompradoresVender(String busqueda){
-        def busquedaU = busqueda
-        def listaCompradores = Usuario.list().find{
-            (it.busquedas.descripcion==busquedaU)
-        }
+    def posiblesCompradoresVender(busqueda){
+        def hql = "select u from Usuario u JOIN u.busquedas b WHERE b.descripcion = :busqueda"
+        def listaCompradores = Usuario.executeQuery(hql,[busqueda: busqueda)
         return listaCompradores
     }
 

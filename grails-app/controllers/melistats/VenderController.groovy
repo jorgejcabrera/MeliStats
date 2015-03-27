@@ -15,8 +15,11 @@ class VenderController {
 	}
 
 	def posiblesCompradores(){
-		def busqueda = params.nombreBusqueda
+		println params.busqueda
+		def busqueda = params.busqueda
+
 		def listaCompradores = busquedaService.posiblesCompradoresVender(busqueda)
+		println listaCompradores
 
 		def result = [
 			compradores: listaCompradores,
@@ -28,7 +31,7 @@ class VenderController {
 
 	def enviarMail(){
 		def mail = params.mailComprador
-		def producto = params.nombreProducto
+		def producto = params.mailProducto
 		envioMailService.enviarMail(mail, producto)
 	}
 }
