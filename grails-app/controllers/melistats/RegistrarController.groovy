@@ -11,7 +11,7 @@ class RegistrarController {
 
     def registrarUsuario()
     {    	
-    	render registrarService.registrarUsuario(params.usuario, params.contrasenia) as JSON
+    	render registrarService.registrarUsuario(params.usuario, params.contrasenia,'asd') as JSON
     }
 
 }
