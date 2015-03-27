@@ -109,7 +109,8 @@ class BusquedaService {
 		Date fechaActual = new Date()
 		Date fechaReferencia = new Date()
 		fechaReferencia.set(year: fechaActual.getAt(Calendar.YEAR), month: fechaActual.getAt(Calendar.MONTH), date: fechaActual.getAt(Calendar.DAY_OF_MONTH)-2)
-		def ultimasBusquedasRealizadas = Busqueda.findByFechaInicioBusquedaBetween(fechaReferencia,fechaActual);
+		def ultimasBusquedasRealizadas = Busqueda.findByFechaInicioBusquedaBetween(fechaReferencia,fechaActual,[max: 3, offset: 0, sort: "fechaInicioBusqueda", order: "desc"])
+		//def colecionUltimasBusquedasRealizadas = ultimasBusquedasRealizadas.collect {} .sort{ it.fechaInicioBusqueda }.reverse(true)
 		return ultimasBusquedasRealizadas
 	}
 
