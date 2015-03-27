@@ -34,20 +34,25 @@
 				
 			</section>
 			<aside style="font-style: arial; float: right; width: 34%; border: 0px solid">
-
 				<h2 style="margin-left: 33px; margin-bottom: 25px; text-align: left; color: #000;"> <span class="label label-danger">Posibles compradores</h2>
-			<!--	<p style="height: 415px"> -->
-					<g:each in="${listaEmpleados}" var="unEmpleado">
-					<div class="jumbotron" style="width: 275px; margin-left:31px; height: 20px; position: relative;">
-						<ul style="width: 250px;   margin-top: -22px;">
-							<li>
-								${unEmpleado}
-								<button class="btn btn-default" style="margin-left:54px" type="button">Contactar</button>
-							</li>
-						</ul>
+				<div class="jumbotron" id="div-posibles-compradores" style="width: 275px; margin-left:31px; height: 20px; position: relative;">
+					<div id="posible-comprador-template">
+						<g:form method="POST" controller="vender" action="enviarMail">
+							<div id="nombrePosibleComprador"> #nombreComprador </div>
+							<input type="hidden" name="mailComprador" value="#mailComprador">
+							<input type="hidden" name="mailProducto" value="#nombreProducto">
+							<input type="submit" class="btn btn-default" style="margin-left:54px" value="Contactar">
+						</g:form>
 					</div>
-					</g:each>
-				<!--</p> -->
+					<div id="posible-comprador">
+						<g:form method="POST" controller="vender" action="enviarMail">
+							<div id="nombrePosibleComprador"> #nombreComprador </div>
+							<input type="hidden" name="mailComprador" value="#mailComprador">
+							<input type="hidden" name="mailProducto" value="#nombreProducto">
+							<input type="submit" class="btn btn-default" style="margin-left:54px" value="Contactar">
+						</g:form>
+					</div>
+				</div>
 			</aside>
 		</article>
 	</div>
@@ -67,6 +72,8 @@
 		var itemMasVendido = 0.0
 		var descripcionItemMasVendido = ""
 		$("#listado-resultado").hide()
+		$("#posible-comprador").hide()
+		$("#posible-comprador-template").hide()
 		$("#botonBuscador").click(accionBuscar)
 		$("#textBusqueda").keypress(verificarEnter)
 
@@ -97,9 +104,39 @@
 					});
 		}
 
+		function posiblesCompradores(String busqueda){
+			$("#div-posibles-compradores").empty()
+			var descBusq = busqueda
+			var promise = $.ajax({
+						url: "${createLink(controller:'vender',action:'posiblesCompradores')}",
+						method: "POST",
+						contentType: "application/json; charset=utf-8",
+						data: [nombreBusqueda: descBusq],
+				});
+			promise.done(mostrarCompradores)
+
+		}
+
+		function mostrarCompradores(data){
+			$.each( data.results, agregarResultado )
+		}
+
+		function agregarResultado(index, item){
+				var str=$("#posible-comprador-template").html();
+        		str = str.replace("#nombreComprador", item.nombre);
+        		str = str.replace("#mailComprador", item.mail);
+        		str = str.replace("#nombreProducto", item.busqueda);
+        		$("#posible-comprador").show();
+        		$("#posible-comprador").append(str);
+		}
+
+
+
 		function verificarEnter(event) {
 			if (event.which == 13) {
 				accionBuscar()
+				var busqueda = $("#textBusqueda").val()
+				posiblesCompradores(busqueda)
 			}
 		}
 

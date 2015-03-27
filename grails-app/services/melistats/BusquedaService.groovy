@@ -101,4 +101,12 @@ class BusquedaService {
         }
     }
 
+    def posiblesCompradoresVender(String busqueda){
+        def busquedaU = busqueda
+        def listaCompradores = Usuario.list().find{
+            (it.busquedas.descripcion==busquedaU)
+        }
+        return listaCompradores
+    }
+
 }
