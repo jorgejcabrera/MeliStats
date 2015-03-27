@@ -65,11 +65,7 @@
 		var cantidadItemsConMEGratis = 0.0
 		var cantidadItemsPublicados = 0.0
 		var itemMasVendido = 0.0
-		var precioItemMasVendido = 0.0
-		var tituloItemMasVendido = ""
-		var aceptaMp = false;
-		var envioGratisItemMasVendido = false;
-		var linkItemMasVendido = ""
+		var descripcionItemMasVendido = ""
 		$("#listado-resultado").hide()
 		$("#botonBuscador").click(accionBuscar)
 		$("#textBusqueda").keypress(verificarEnter)
@@ -91,15 +87,8 @@
 			calcular(0).done(
 					function() {
 						var montoPromedio = ""
-						var descripcionItemMasVendido = ""
 						montoPromedio += "<div align=center><h3>"
 								+ "<span class='label label-danger' >Precio sugerido: $" + (sumaTotal/ cantidadItems).toFixed(2) + "</h3></span></div>"
-						descripcionItemMasVendido += "<div align=center><h3>"+ "Caracteristicas del articulo mas vendido"+"</h3></div>"+
-														"<div align=center><h5><a href='"+linkItemMasVendido+"'>"+tituloItemMasVendido+"</a>"+"</h5></div>"+
-														"<div align=center><h5> Precio: $ "+precioItemMasVendido+"</h5></div>"+
-														"<div align=center><h5>"+itemMasVendido+" ventas"+"</h5></div>"+
-														"<div align=center><h5>"+aceptaMp+"</h5></div>"+
-														"<div align=center><h5>"+envioGratisItemMasVendido+"</h5></div>"
 						drawChart(cantidadItemsConMP, cantidadItems)
 						drawChart2(cantidadItemsConMEGratis, cantidadItems)
 						drawChart3(cantidadItemsVendidos, cantidadItemsPublicados)
@@ -151,7 +140,7 @@
 				cantidadItemsVendidos += item.sold_quantity
 				cantidadItemsPublicados += item.available_quantity + item.sold_quantity
 				if(item.sold_quantity > itemMasVendido)
-					actualizarValoresItemMasVendido(item)
+					crearDescripcionItemMasVendido(item)
 				if (item.accepts_mercadopago)
 					cantidadItemsConMP++
 				if (item.shipping.free_shipping)
@@ -159,21 +148,25 @@
 			}
 		}
 
-		function actualizarValoresItemMasVendido(item) {
+		function crearDescripcionItemMasVendido(item) {
 			itemMasVendido = item.sold_quantity
-			tituloItemMasVendido = item.title
-			aceptaMp = item.accepts_mercadopago;
-			precioItemMasVendido = item.price
-			linkItemMasVendido = item.permalink
-			if (aceptaMp)
+			var aceptaMp = ""
+			var envioGratisItemMasVendido = ""
+			descripcionItemMasVendido = ""
+			if (item.accepts_mercadopago)
 				aceptaMp = "Acepta mercado de pago"
 			else
 				aceptaMp = "No acepta mercado de pago"
-			envioGratisItemMasVendido = item.shipping.free_shipping;
-			if (envioGratisItemMasVendido)
+			if (item.shipping.free_shipping)
 				envioGratisItemMasVendido = "Envio gratis"
 			else
 				envioGratisItemMasVendido = "Envio a pago"
+			descripcionItemMasVendido += "<div align=center><h3>"+ "Item mas vendido acorde a tu busqueda"+"</h3></div>"+
+				"<div align=center><h5><a href='"+item.permalink+"'>"+item.title+"</a>"+"</h5></div>"+
+				"<div align=center><h5> Precio: $ "+item.price+"</h5></div>"+
+				"<div align=center><h5>"+item.sold_quantity+" ventas"+"</h5></div>"+
+				"<div align=center><h5>"+aceptaMp+"</h5></div>"+
+				"<div align=center><h5>"+envioGratisItemMasVendido+"</h5></div>"
 		}
 
 		function mostrarError() {
