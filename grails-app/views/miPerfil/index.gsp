@@ -61,8 +61,10 @@
 						</div>
 
 
-
-						
+	<!--				<g:if test="${preferencias=='[]'}">
+						<div>CREATE UNA PREF</div>
+					</g:if>
+		-->				
 
 					<g:each in="${preferencias}" var="pref">
 						<div class="jumbotron" style="width: 420px; height: 220px; position: relative; margin-left: -50px; margin-bottom: -11px;">
@@ -109,11 +111,12 @@
 
 					<g:each in="${busquedas}" var="busq">
 						<div class="jumbotron" style="width: 446px; height: 80px; position: relative; margin-left: -23px; margin-bottom: 15px;   margin-top: 18px;"> 
-							<div style="margin-left: -37px; margin-top: -23px;"> Búsqueda: ${busq.descripcion}</div> 
+							<div style="margin-left: -37px; margin-top: -32px"> Búsqueda: ${busq.descripcion}</div> 
 							<div style="margin-left: -38px; margin-top: 6px;"> Fecha en la que se realizó: ${busq.fechaInicioBusqueda}</div>
+							<a href="/MeliStats/estadisticas/${busq.descripcion}" style="margin-left: -38px; margin-top: -120px; color:#E03549">Ver estadísticas</a>
 							<form action="${createLink(controller: 'miPerfil', action: 'eliminarBusq')}" method="post">
 								<input type="hidden" name="idBusqueda" value="${busq.id}" id="idBusqueda"/>
-								<input type="submit" class="btn btn-danger" value="Eliminar" id="btnEliminarBusq" controller="MiPerfil" action="eliminarBusq"  style="margin-left: 289px;  margin-top: -68px;"/>
+								<input type="submit" class="btn btn-danger" value="Eliminar" id="btnEliminarBusq" controller="MiPerfil" action="eliminarBusq"  style="margin-left: 289px;  margin-top: -88px;"/>
 							</form>						
 					</div>
 					</g:each>
