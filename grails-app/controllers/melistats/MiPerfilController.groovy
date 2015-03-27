@@ -54,7 +54,8 @@ class MiPerfilController {
 		def busqueda = Busqueda.get(idBusqueda as long)
 		usuarioService.usuarioActual().removeFromBusquedas(busqueda)
 		usuarioService.usuarioActual().save(flush:true, failOnError:true)
-		for(int i=0; i<busqueda.muestras.size()-1;i++){ //VER EL MENOR, O MENOR IGUAL Y SIZE -1
+		//TODO testear el for
+		for(int i=0; i<busqueda.muestras.size();i++){ //VER EL MENOR, O MENOR IGUAL Y SIZE -1
 			busqueda.getUltimaMuestra().delete(flush:true, failOnError:true)
 		}
 		busqueda.delete(flush:true, failOnError:true)

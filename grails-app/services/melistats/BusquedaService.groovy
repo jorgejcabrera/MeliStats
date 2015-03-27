@@ -2,6 +2,8 @@ package melistats
 
 import grails.transaction.Transactional
 import groovy.json.JsonSlurper
+
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -13,6 +15,8 @@ class BusquedaService {
     def preferenciaService
     def usuarioService
 
+	
+	
     def getDatos(nombreBusqueda)
     {
         nombreBusqueda = nombreBusqueda.replaceAll(' ','%20')
@@ -35,7 +39,7 @@ class BusquedaService {
     {   	
 
         def consulta = params.textoBusqueda
-        def productos = getDatos(consulta).results // se queda con solo los productos
+        def datos = getDatos(consulta) // se queda con solo los productos
 
         // si el API no tiene resultados para la buqueda, devolver como estado 'no_results'
         if(datos.results == [] || datos == null )
@@ -89,17 +93,25 @@ class BusquedaService {
         }
     }
 
-    def actualizarBusquedas()
-    {
-        for(busqueda in Busqueda.list())
-        {
-            def datos = getDatos(busqueda.descripcion)
-            if( datos != null && datos.results != [] )
-            {
-                muestraService.agregarMuestra(busqueda,datos)
-            }
-        }
-    }
+	def actualizarBusquedas()
+	{
+		for(busqueda in Busqueda.list())
+		{
+			def datos = getDatos(busqueda.descripcion)
+			if( datos != null && datos.results != [])
+			{
+				muestraService.agregarMuestra(busqueda,datos)
+			}
+		}
+	}
+
+	def getUltimasRealizadas(){
+		Date fechaActual = new Date()
+		Date fechaReferencia = new Date()
+		fechaReferencia.set(year: fechaActual.getAt(Calendar.YEAR), month: fechaActual.getAt(Calendar.MONTH), date: fechaActual.getAt(Calendar.DAY_OF_MONTH)-2)
+		def ultimasBusquedasRealizadas = Busqueda.findByFechaInicioBusquedaBetween(fechaReferencia,fechaActual);
+		return ultimasBusquedasRealizadas
+	}
 
     def posiblesCompradoresVender(String busqueda){
         def busquedaU = busqueda
