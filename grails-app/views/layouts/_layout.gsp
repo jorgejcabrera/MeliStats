@@ -18,7 +18,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<sec:ifNotLoggedIn>
 							<div class="btn-group">
-								<button type="button" class="btn btn-danger navbar-btn" aria-expanded="false" href="${createLink(controller:'registrar', action:'index')}">Registrarse</button>
+								<a type="button" class="btn btn-danger navbar-btn" aria-expanded="false" href="${createLink(controller:'registrar', action:'index')}">Registrarse</a>
 							</div>
 							<div class="btn-group">
 								<a class="btn btn-danger navbar-btn" aria-expanded="false"href="${createLink(controller:'login',action:'auth') }">Login</a>
