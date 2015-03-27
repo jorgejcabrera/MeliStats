@@ -160,7 +160,7 @@
 			if (item.shipping.free_shipping)
 				envioGratisItemMasVendido = "Envio gratis"
 			else
-				envioGratisItemMasVendido = "Envio a pago"
+				envioGratisItemMasVendido = "Envio pago"
 			descripcionItemMasVendido += "<div align=center><h3>"+ "Item mas vendido acorde a tu busqueda"+"</h3></div>"+
 				"<div align=center><h5><a href='"+item.permalink+"'>"+item.title+"</a>"+"</h5></div>"+
 				"<div align=center><h5> Precio: $ "+item.price+"</h5></div>"+
@@ -170,7 +170,7 @@
 		}
 
 		function mostrarError() {
-			$("#respuesta_api").html("<li>Se produjo un errors</li>")
+			$("#listado-resultado").html("<li>Se produjo un errors</li>")
 		}
 		google.load("visualization", "1", {
 			packages : [ "corechart" ]
