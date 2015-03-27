@@ -30,8 +30,7 @@
 			<g:if test="${busquedasMasRecientes[0] != null}">
 				<div align=center class="alert alert-info" role="alert">
 					<h4>
-						<span> ${busquedasMasRecientes[0].descripcion}
-						</span>
+						<a href="/MeliStats/estadisticas/${busquedasMasRecientes[0].descripcion}">${busquedasMasRecientes[0].descripcion}</a>
 					</h4>
 				</div>
 			</g:if>
@@ -41,8 +40,8 @@
 			<g:if test="${busquedasMasRecientes[1] != null}">
 				<div align=center class="alert alert-info" role="alert">
 					<h4>
-						<span> ${busquedasMasRecientes[1].descripcion}
-						</span>
+						<a href="/MeliStats/estadisticas/${busquedasMasRecientes[1].descripcion}"> ${busquedasMasRecientes[1].descripcion}</a>
+						
 					</h4>
 				</div>
 			</g:if>
@@ -52,8 +51,7 @@
 			<g:if test="${busquedasMasRecientes[2] != null}">
 				<div align=center class="alert alert-info" role="alert">
 					<h4>
-						<span> ${busquedasMasRecientes[2].descripcion}
-						</span>
+						<a href="/MeliStats/estadisticas/${busquedasMasRecientes[2].descripcion}">${busquedasMasRecientes[2].descripcion}</a>
 					</h4>
 				</div>
 			</g:if>
