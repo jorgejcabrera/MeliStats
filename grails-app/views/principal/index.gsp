@@ -12,12 +12,39 @@
 		</h1>
 		<div class="jumbotron"
 			style="float: left; margin-left: 10px; width: 400px; height: 200px; margin-top: 20px; width: 400px; height: 200px;">
+			<g:if test="${busquedasMasRealizadas[0] != null}">
+				<div align=center class="alert alert-info" role="alert">
+					<h4>
+						<a
+							href="/MeliStats/estadisticas/${busquedasMasRealizadas[0].descripcion}">
+							${busquedasMasRealizadas[0].descripcion}
+						</a>
+					</h4>
+				</div>
+			</g:if>
 		</div>
 		<div class="jumbotron"
 			style="float: left; margin-left: 10px; width: 400px; height: 200px; margin-top: 20px;">
+			<g:if test="${busquedasMasRealizadas[1] != null}">
+				<div align=center class="alert alert-info" role="alert">
+					<h4>
+						<a
+							href="/MeliStats/estadisticas/${busquedasMasRealizadas[1].descripcion}">
+							${busquedasMasRealizadas[1].descripcion}
+						</a>
+					</h4>
+				</div>
+			</g:if>
 		</div>
 		<div class="jumbotron"
 			style="float: left; margin-left: 10px; width: 400px; height: 200px; margin-top: 20px;">
+			<g:if test="${busquedasMasRealizadas[2] != null}">
+				<div align=center class="alert alert-info" role="alert">
+					<h4>
+						<a href="/MeliStats/estadisticas/${busquedasMasRealizadas[2].descripcion}"> ${busquedasMasRealizadas[2].descripcion}</a>
+					</h4>
+				</div>
+			</g:if>
 		</div>
 	</div>
 	<div style="position: relative; top: 40px; left: 20px; width: 96%;">
