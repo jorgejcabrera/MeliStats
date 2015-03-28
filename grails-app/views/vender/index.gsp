@@ -105,7 +105,7 @@
 					function() {
 						var montoPromedio = ""
 						montoPromedio += "<div align=center><h3>"
-								+ "<span class='label label-danger' >Precio sugerido: $" + (sumaTotal/ cantidadItems).toFixed(2) + "</h3></span></div>"
+								+ "<span class='label label-danger' >Precio promedio: $" + (sumaTotal/ cantidadItems).toFixed(2) + "</h3></span></div>"
 						drawChart(cantidadItemsConMP, cantidadItems)
 						drawChart2(cantidadItemsConMEGratis, cantidadItems)
 						drawChart3(cantidadItemsVendidos, cantidadItemsPublicados)
