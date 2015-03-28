@@ -4,6 +4,7 @@ class Busqueda {
 	
 	String descripcion
 	Date fechaInicioBusqueda
+	int frecuencia = 0
 	
 	static hasMany = [muestras: Muestra]
 	
