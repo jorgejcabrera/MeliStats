@@ -9,6 +9,7 @@ class MuestraService {
     {
 
     	def productos = datos.results
+		def imagen = productos[1].thumbnail
     	def precios = productos.price.findAll{it != null}
 
 
@@ -21,6 +22,7 @@ class MuestraService {
     	def ventasPromedio = ventasPromedio(productos)
     	
 		def muestra = new Muestra(
+					imagen: imagen,
 					fechaDeMuestra: new Date(), 
 					precioPromedio: precioPromedio,
 					precioMax: precioMax,

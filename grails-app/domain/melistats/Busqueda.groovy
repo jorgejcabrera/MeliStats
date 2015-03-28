@@ -12,6 +12,10 @@ class Busqueda {
 		descripcion unique: true
 	}
 
+	def getImagen(){
+		muestras.last().imagen
+	}
+	
 	def getUltimaMuestra(){
 		if(muestras == null || muestras.size() == 0){
 			return null

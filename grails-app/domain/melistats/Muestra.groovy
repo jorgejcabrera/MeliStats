@@ -4,6 +4,7 @@ import java.util.Date;
 
 class Muestra {
 	
+	String imagen
 	Date fechaDeMuestra
 	float precioPromedio
 	float precioMax
