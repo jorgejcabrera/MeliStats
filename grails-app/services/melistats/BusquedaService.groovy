@@ -113,6 +113,15 @@ class BusquedaService {
 		return ultimasBusquedasRealizadas
 	}
 
+	// las busquedas mas populares van a ser las que mas se realizaron durante ese mes
+	def getMasPopulares(){
+		Date fechaActual = new Date()
+		Date fechaReferencia = new Date()
+		fechaReferencia.set(year: fechaActual.getAt(Calendar.YEAR), month: fechaActual.getAt(Calendar.MONTH), date:1)
+		def busquedasMasPopularesDelMes = Busqueda.findAllByFechaInicioBusquedaBetween(fechaReferencia,fechaActual,[max:3,sort: "frecuencia", order: "desc", offset: 0])
+		return busquedasMasPopularesDelMes
+	}
+	
     def posiblesCompradoresVender(busqueda){
         def hql = "select u from Usuario u JOIN u.busquedas b WHERE b.descripcion = :busqueda"
         def listaCompradores = Usuario.executeQuery(hql,[busqueda: busqueda])

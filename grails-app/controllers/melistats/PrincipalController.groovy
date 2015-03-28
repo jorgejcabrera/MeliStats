@@ -6,6 +6,7 @@ class PrincipalController {
 	def busquedaService;
     def index() {
 		def busquedasMasRecientes = busquedaService.getUltimasRealizadas()
+		//def busquedasMasRealizadas = busquedaService.getMasPopulares();
 		[busquedasMasRecientes:busquedasMasRecientes/*,busquedasMasRealizadas:busquedasMasRealizadas*/]
 	}
 }
