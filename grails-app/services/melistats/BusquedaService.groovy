@@ -50,6 +50,9 @@ class BusquedaService {
 
         //si la busqueda ya existe se lee la previamente creada, de lo contrario se crea
         def busqueda = Busqueda.findByDescripcion(consulta)?: new Busqueda(descripcion: consulta, fechaInicioBusqueda: new Date()).save(flush:true)
+
+        //suma uno a la cantidad de veces que fue busacada, al inicializarse está en 0
+        busqueda.frecuencia++
         
         //si la busqueda se debe guardar en el perfil, 
         //se busca si existe ya en este usuario. Si existe, no se hace nada; de lo contrario
