@@ -173,7 +173,7 @@
 
 				<g:each in="${busquedas}" var="busq">
 					<div class="jumbotron"
-						style="width: 446px; height: 80px; position: relative; margin-left: -23px; margin-bottom: 15px; margin-top: 18px;">
+						style="width: 446px; height: 180px; position: relative; margin-left: -23px; margin-bottom: 15px; margin-top: 18px;">
 						<div style="margin-left: -37px; margin-top: -32px">
 							Búsqueda:
 							${busq.descripcion}
@@ -182,9 +182,11 @@
 							Fecha en la que se realizó:
 							${busq.fechaInicioBusqueda}
 						</div>
+						<div><img src='${busq.getImagen()}' height='80' width='80'></div>
 						<a href="${createLink(controller: 'estadistica', action: 'index', params: [busqueda: busq.descripcion])}"
 							style="margin-left: -38px; margin-top: -120px; color: #E03549">Ver
 							estadísticas</a>
+						
 						<form
 							action="${createLink(controller: 'miPerfil', action: 'eliminarBusq')}"
 							method="post">
