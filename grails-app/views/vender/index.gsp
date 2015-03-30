@@ -19,8 +19,8 @@
 						<input type="text" class="form-control" id="textBusqueda"
 							placeholder="Escriba el producto para el cual quiera obtener sugerencias de venta">
 						<span class="input-group-btn"> 
-								<g:select class="btn btn-danger" style="height: 34px;" id="condicion" name="condicion" from="${['Nuevo', 'Usado']}" optionKey="${condicion}"/>
-							<button class="btn btn-danger" style="" id="botonBuscador"
+								<g:select class="btn btn-submit" style=" width: 91px; height: 34px;" id="condicion" name="condicion" from="${['Nuevo', 'Usado']}" optionKey="${condicion}"/>
+							<button class="btn btn-submit" style=" margin-left: 3px;" id="botonBuscador"
 								type="button" onClick="verificarClick()">Buscar</button>
 						</span>
 					</div>
@@ -49,7 +49,7 @@
 					</div>
 				</span>
 				<g:if test="${flash.message=='success'}">
-					<div align="center" style="margin-left: -21%;">
+					<div align="center" id="mensajeEnviado" style="margin-left: -21%;">
 						<span class="label label-success">Mail enviado correctamente</span>
 					</div>
 				</g:if>
@@ -87,6 +87,7 @@
 
 		function limpiarPantalla(){
 			$("#posible-comprador").empty()
+			$("#mensajeEnviado").empty()
 			var tabla = document.getElementById("listado-resultado") 
 			while (tabla.firstChild) {
 				tabla.removeChild(tabla.firstChild)

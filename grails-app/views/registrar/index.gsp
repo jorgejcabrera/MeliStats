@@ -22,10 +22,10 @@
 
  				</g:form>
     			<g:if test="${flash.message=='failed'}">
-					<h3 style="text-align:center; color: #000;" class="lead"><span class="label label-danger" style="margin-left: -25%;">Ya hay un usuario registrado con ese nombre de usuario.</span></h3>
+					<h3 style="text-align:center; margin-left: 65px; color: #000;" class="lead"><span class="label label-danger" style="margin-left: -25%;">Ya hay un usuario registrado con ese nombre de usuario.</span></h3>
 				</g:if>
 				<g:if test="${flash.message=='success'}">
-					<h3 style="text-align:center; color: #000;" class="lead"><span class="label label-success" style="margin-left: -15%;">Usuario registrado correctamente.</span></h3>
+					<h3 style="text-align:center; margin-left: 39px; color: #000;" class="lead"><span class="label label-success" style="margin-left: -15%;">Usuario registrado correctamente.</span></h3>
 				</g:if>
 
   			</div>
