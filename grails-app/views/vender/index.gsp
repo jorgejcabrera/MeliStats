@@ -41,7 +41,7 @@
 			<aside style="font-style: arial; float: right; width: 34%; border: 0px solid">
 				<h2 style="margin-left: 33px; margin-bottom: 25px; text-align: left; color: #000;">
 				<span class="label label-danger">Posibles compradores</h2>
-					<div class="jumbotron" id="div-posibles-compradores" style="width: 275px; margin-left:31px; height: 20px; position: relative;">
+					<div class="jumbotron" id="div-posibles-compradores" style="width: 275px; margin-left:31px; position: relative;">
 						<div id="posible-comprador">
 							<div id="nombrePosibleComprador"></div>
 							<g:form method="POST" controller="vender" action="enviarMail"></g:form>	
