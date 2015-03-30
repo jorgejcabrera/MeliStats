@@ -26,9 +26,4 @@ class Busqueda {
 		return muestras.last()
 	}
 
-	def setDescripcion(String desc)
-	{
-		descripcion = desc.capitalize()
-	}
-
 }

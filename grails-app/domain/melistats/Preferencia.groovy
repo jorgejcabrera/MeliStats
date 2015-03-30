@@ -8,4 +8,5 @@ class Preferencia {
 	int condicionPref
 	static constraints = {
 	}
+
 }

@@ -8,19 +8,11 @@ class VenderController {
 
 	def busquedaService
 	def envioMailService
-    def index() {
-		def unString = "hola"
-		def listaEmpleados = ['jorge','ken','candelaria','guido']
-		[unString:unString,listaEmpleados:listaEmpleados]
-	}
+    def index() {}
 
 	def posiblesCompradores(){
-		println params.busqueda
 		def busqueda = params.busqueda
-
 		def listaCompradores = busquedaService.posiblesCompradoresVender(busqueda)
-		println listaCompradores
-
 		def result = [
 			compradores: listaCompradores,
 			busqueda: busqueda,
@@ -30,8 +22,11 @@ class VenderController {
 	}
 
 	def enviarMail(){
+		//try
 		def mail = params.mailComprador
 		def producto = params.mailProducto
 		envioMailService.enviarMail(mail, producto)
+		flash.message="success"
+		redirect(action:'index')
 	}
 }

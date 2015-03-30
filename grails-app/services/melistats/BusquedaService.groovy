@@ -3,8 +3,8 @@ package melistats
 import grails.transaction.Transactional
 import groovy.json.JsonSlurper
 
-import java.util.Date;
-import java.util.List;
+import java.util.Date
+import java.util.List
 
 @Transactional
 class BusquedaService {
@@ -122,6 +122,7 @@ class BusquedaService {
     def posiblesCompradoresVender(busqueda){
         def hql = "select u from Usuario u JOIN u.busquedas b WHERE b.descripcion = :busqueda"
         def listaCompradores = Usuario.executeQuery(hql,[busqueda: busqueda])
+        println listaCompradores
         return listaCompradores
     }
 
