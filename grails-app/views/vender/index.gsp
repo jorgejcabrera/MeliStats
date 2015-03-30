@@ -40,14 +40,13 @@
 			</section>
 			<aside style="font-style: arial; float: right; width: 34%; border: 0px solid">
 				<h2 style="margin-left: 33px; margin-bottom: 25px; text-align: left; color: #000;">
-				<span class="label label-danger">Posibles compradores</h2>
-					<div class="jumbotron" id="div-posibles-compradores" style="width: 275px; margin-left:31px; position: relative;">
+				<span class="label label-danger">Posibles compradores</span></h2>
+					<div class="jumbotron" id="div-posibles-compradores" style="margin-left:31px; position: relative;">
 						<div id="posible-comprador">
 							<div id="nombrePosibleComprador"></div>
 							<g:form method="POST" controller="vender" action="enviarMail"></g:form>	
 						</div>
 					</div>
-				</span>
 				<g:if test="${flash.message=='success'}">
 					<div align="center" id="mensajeEnviado" style="margin-left: -21%;">
 						<span class="label label-success">Mail enviado correctamente</span>
@@ -62,7 +61,7 @@
 			<div id="nombrePosibleComprador" style="position: relative; top: -35px; left: 55px;"> #nombreComprador </div>
 			<input type="hidden" name="mailComprador" value="#mailComprador">
 			<input type="hidden" name="mailProducto" value="#nombreProducto">
-			<input type="submit" class="btn btn-submit" style="margin-left: 143px; margin-top: -113px;" value="Contactar">
+			<input type="submit" class="btn btn-submit" style="margin-left: 180px; margin-top: -113px;" value="Contactar">
 		</g:form>
 	</script>
 	<script type="text/javascript">
