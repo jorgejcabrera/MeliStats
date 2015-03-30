@@ -108,13 +108,13 @@ function alertar(tipo, contenido)
 
 function mostrarLinkEstadisticas()
 {
-	var link = '<h4><a href="/MeliStats/estadisticas/'+ultimabusqueda+'">Ver Estadísitcas Completas</a></h4>'
+	var link = '<h4><a href="/MeliStats/estadisticas/'+ultimabusqueda+'">Ver Estadísticas Completas</a></h4>'
 	$('#url-datos').append(link)
 }
 
 function mostrarPrecioPromedio(precio)
 {
-	$('#precio-promedio').append('<h4>Precio promedio: '+precio+'$</h4>')
+	$('#precio-promedio').append('<h4>Precio promedio: $'+precio+'</h4>')
 }
 
 function mostrarPorcentajeEnvio(porcentaje)
