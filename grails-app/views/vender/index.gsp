@@ -49,7 +49,7 @@
 					</div>
 				</span>
 				<g:if test="${flash.message=='success'}">
-					<div align="center" style="margin-left: -21%;">
+					<div align="center" id="mensajeEnviado" style="margin-left: -21%;">
 						<span class="label label-success">Mail enviado correctamente</span>
 					</div>
 				</g:if>
@@ -87,6 +87,7 @@
 
 		function limpiarPantalla(){
 			$("#posible-comprador").empty()
+			$("#mensajeEnviado").empty()
 			var tabla = document.getElementById("listado-resultado") 
 			while (tabla.firstChild) {
 				tabla.removeChild(tabla.firstChild)
