@@ -8,7 +8,7 @@
 <body>
 	<g:hiddenField id="offset" name="offset" value="0" />
 	<g:hiddenField id="maxRows" name="maxRows" value="0" />
-	<div style="position: relative; top: 50px; left: 4px; width: 99%;">
+	<div style="position: relative; top: 50px; left: 4px; width: 95%;">
 		<div style="margin-left: -10%;">
 			<h2 style="margin-left: 169px; margin-bottom: 7px;">¿Qué desea
 				vender?</h2>
@@ -41,12 +41,10 @@
 			<aside style="font-style: arial; float: right; width: 34%; border: 0px solid">
 				<h2 style="margin-left: 33px; margin-bottom: 25px; text-align: left; color: #000;">
 				<span class="label label-danger">Posibles compradores</span></h2>
-					<div class="jumbotron" id="div-posibles-compradores" style="margin-left:31px; position: relative;">
-						<div id="posible-comprador">
-							<div id="nombrePosibleComprador"></div>
-							<g:form method="POST" controller="vender" action="enviarMail"></g:form>	
-						</div>
-					</div>
+				<div id="posible-comprador" style="margin-top: 70px;">
+					<div id="nombrePosibleComprador"><strong></strong></div>
+					<g:form method="POST" controller="vender" action="enviarMail"></g:form>	
+				</div>
 				<g:if test="${flash.message=='success'}">
 					<div align="center" id="mensajeEnviado" style="margin-left: -21%;">
 						<span class="label label-success">Mail enviado correctamente</span>
@@ -58,7 +56,7 @@
 
 	<script type="text/template" id="posible-comprador-template">
 		<g:form method="POST" controller="vender" action="enviarMail">
-			<div id="nombrePosibleComprador" style="position: relative; top: -35px; left: 55px;"> #nombreComprador </div>
+			<div id="nombrePosibleComprador" style="position: relative; top: -35px; left: 55px;"><strong> #nombreComprador </strong></div>
 			<input type="hidden" name="mailComprador" value="#mailComprador">
 			<input type="hidden" name="mailProducto" value="#nombreProducto">
 			<input type="submit" class="btn btn-submit" style="margin-left: 180px; margin-top: -113px;" value="Contactar">
