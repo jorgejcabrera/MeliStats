@@ -24,13 +24,7 @@
       var options = {
         width: 900,
         height: 263,
-        hAxis: {
-          title: 'Mes',
-          
-        },
-        vAxis: {
-          title: 'Porcentaje'
-        }
+        title: 'Porcentajes de Envíos a lo largo del tiempo'
       };
 
       var chart = new google.visualization.ColumnChart(

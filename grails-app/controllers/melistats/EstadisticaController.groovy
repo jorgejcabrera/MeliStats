@@ -40,10 +40,9 @@ class EstadisticaController {
                     }
 
                   } else {
-
                     for(int i=0; i<tamanioMuestras; i++){
-                    if(i%10==0){
-                      muestrasNuevas = muestrasNuevas + muestras[i]
+                      if(i%10==0){
+                        muestrasNuevas = muestrasNuevas + muestras[i]
                       }
                     }
                   }
