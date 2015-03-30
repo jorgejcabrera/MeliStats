@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
-	<head>
+	<head> 
+		<link rel="icon" type="image/png" href="${resource(dir:'images', file:'icono.png')}">
 		<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 		<link rel="stylesheet" href="${resource(dir:'css', file: 'bootstrap.css')}" />
 		<script type="text/javascript" src="${resource(dir:'js', file: 'bootstrap.js')}"></script>
+		<title>MeliStats</title>
 		<g:layoutHead/>
 	</head>
 	<body style="background:rgba(255, 255, 255, 1)">
