@@ -40,7 +40,7 @@ function ejecutarBusqueda()
 
 		textoBusqueda : $('#busqueda').val(),
 		preferencia : $('#preferencia').val()
-		
+
 	}
 
 	var promesa = $.post(endpoint, jsonBusqueda)
@@ -114,7 +114,7 @@ function mostrarLinkEstadisticas()
 
 function mostrarPrecioPromedio(precio)
 {
-	$('#precio-promedio').append('<h4>Precio promedio: '+precio+'</h4>')
+	$('#precio-promedio').append('<h4>Precio promedio: '+precio+'$</h4>')
 }
 
 function mostrarPorcentajeEnvio(porcentaje)
