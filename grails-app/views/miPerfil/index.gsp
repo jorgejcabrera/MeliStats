@@ -42,7 +42,7 @@
 											<div>
 												<h4 class="featurette-heading">¿Qué nombre le quiere
 													dar a la preferencia?</h4>
-												<input type="text" placeholder="Ingrese el nombre elegido"  title="Escribe solo letras, sin signos"
+												<input type="text" placeholder="Ingrese el nombre elegido"  title="Escribe letras y/o números, sin signos"
 													id="campoNombre" style="width: 100%;" pattern="[A-Za-z0-9]+" name="nombrePref"
 													required>
 											</div>
@@ -50,7 +50,7 @@
 											<div>
 												<h4 class="featurette-heading">¿Cuánto le importa que
 													el precio sea barato?</h4>
-												<div>Poco &nbsp&nbsp Mucho</div>
+												<div align="center" style="word-spacing: 280pt;"> Poco Mucho </div>
 												<input type="range" min="0"
 													max"10" placeholder="Elija la importancia que le da al precio"
 													id="campoPrecio" name="precioPref" value="">
@@ -59,7 +59,7 @@
 											<div>
 												<h4 class="featurette-heading">¿Cuánto le importa el
 													envío gratis?</h4>
-												<div>Poco &nbsp&nbsp Mucho</div>
+												<div align="center" style="word-spacing: 280pt;"> Poco Mucho </div>
 												<input type="range" min="0"
 													max"10" placeholder="Elija la importancia que le da al envío gratis"
 													id="campoEnvio" name="envioPref" value="">
@@ -68,7 +68,7 @@
 											<div>
 												<h4 class="featurette-heading">¿Cuánto le importa la
 													reputación del vendedor?</h4>
-												<div>Poco &nbsp&nbsp Mucho</div>
+												<div align="center" style="word-spacing: 280pt;"> Poco Mucho </div>
 												<input type="range" min="0"
 													max"10" placeholder="Elija la importancia que le da a la reputación del vendedor"
 													id="campoReputacion" name="reputacionPref" value="">
@@ -76,7 +76,7 @@
 											<br>
 											<div>
 												<h4 class="featurette-heading">¿Cuánto le importa que el producto sea nuevo?</h4>
-												<div>Poco &nbsp&nbsp Mucho</div>
+												<div align="center" style="word-spacing: 280pt;"> Poco Mucho </div>
 												<input type="range" min="0"
 													max"10" placeholder="Elija la importancia que le da a que el producto sea usado o nuevo"
 													id="campoCondicion" name="condicionPref" value="">
