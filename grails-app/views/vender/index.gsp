@@ -8,30 +8,35 @@
 <body>
 	<g:hiddenField id="offset" name="offset" value="0" />
 	<g:hiddenField id="maxRows" name="maxRows" value="0" />
-	<div style="  position: relative; top: 50px; left: 4px; width: 99%;">
-			<div style="margin-left: -10%;">
-			<h2 style="margin-left: 169px; margin-bottom: 7px;">¿Qué desea vender?</h2>
-				<div class="row">
-					<div class="col-lg-6"   style="margin-left: 461px;">
-						<div class="input-group" style="margin-top: -38px; margin-left: 18px;">
-							<input type="text" class="form-control" id="textBusqueda"
-								placeholder="Escriba el producto para el cual quiera obtener sugerencias de venta"> <span
-								class="input-group-btn">
-								<button class="btn btn-danger" style="" id="botonBuscador" type="button">Buscar</button>
-							</span>
-						</div>
+	<div style="position: relative; top: 50px; left: 4px; width: 99%;">
+		<div style="margin-left: -10%;">
+			<h2 style="margin-left: 169px; margin-bottom: 7px;">¿Qué desea
+				vender?</h2>
+			<div class="row">
+				<div class="col-lg-6" style="margin-left: 461px;">
+					<div class="input-group"
+						style="margin-top: -38px; margin-left: 18px;">
+						<input type="text" class="form-control" id="textBusqueda"
+							placeholder="Escriba el producto para el cual quiera obtener sugerencias de venta">
+						<span class="input-group-btn"> 
+								<g:select class="btn btn-danger" style="height: 34px;" id="condicion" name="condicion" from="${['Nuevo', 'Usado']}" optionKey="${condicion}"/>
+							<button class="btn btn-danger" style="" id="botonBuscador"
+								type="button">Buscar</button>
+						</span>
 					</div>
 				</div>
 			</div>
+		</div>
 		<article>
 			<section style="float: left; width: 65%; border: 0px solid">
-				<div align="center" class="well well-sm" style="margin-top: 11px; margin-left:74px">
-				<div align="center" id="listado-resultado"></div>
-				<div id="piechart" style="width: 700px; height: 300px;"></div>
-				<div id="piechart2" style="width: 700px; height: 300px;"></div>
-				<div id="piechart3" style="width: 700px; height: 300px;"></div>
+				<div align="center" class="well well-sm"
+					style="margin-top: 11px; margin-left: 74px">
+					<div align="center" id="listado-resultado"></div>
+					<div id="piechart" style="width: 700px; height: 300px;"></div>
+					<div id="piechart2" style="width: 700px; height: 300px;"></div>
+					<div id="piechart3" style="width: 700px; height: 300px;"></div>
 				</div>
-				
+
 			</section>
 			<aside style="font-style: arial; float: right; width: 34%; border: 0px solid">
 				<h2 style="margin-left: 33px; margin-bottom: 25px; text-align: left; color: #000;">
@@ -62,7 +67,7 @@
 		del conjunto de items correspondientes a una busquedea*/
 
 		var deferred
-		var cantidadItems = 1000
+		var cantidadItems = 0
 		var sumaTotal = 0
 		var cantidadItemsConMP = 0.0
 		var cantidadItemsVendidos = 0.0
@@ -83,7 +88,7 @@
 				$("#piechart").empty()
 				$("#piechart2").empty()
 				$("#piechart3").empty()
-				cantidadItems = 1000
+				cantidadItems = 0
 				sumaTotal = 0
 				cantidadItemsConMP = 0
 				cantidadItemsVendidos = 0
@@ -155,7 +160,13 @@
 		function procesarEstadisticas(data) {
 			console.log(data.paging)
 			$.each(data.results, procesarItem)
-			if (data.paging.offset + data.paging.limit < cantidadItems) {
+			var maximaCantidadDeItems = 1000
+			var itemsAProcesar
+			if (data.paging.total < maximaCantidadDeItems)
+				itemsAProcesar = data.paging.total
+			else
+				itemsAprocesar = maximaCantidadDeItems
+			if (data.paging.offset + data.paging.limit < maximaCantidadDeItems) {
 				calcular(data.paging.offset + data.paging.limit)
 				return true
 			}
@@ -183,11 +194,18 @@
 
 		//los articulos que son subastas tienen una varianza en el precio muy grande con el promedio
 		function procesarItem(index, item) {
-			if (item.buying_mode != "auction") {
+			var condicion = $("#condicion").val()
+			if (condicion == "Usado")
+				condicion = "used"
+			else
+				condicion = "new"
+			if (item.buying_mode != "auction" && item.condition == condicion) {
+				cantidadItems ++
 				sumaTotal += item.price
 				cantidadItemsVendidos += item.sold_quantity
-				cantidadItemsPublicados += item.available_quantity + item.sold_quantity
-				if(item.sold_quantity > itemMasVendido)
+				cantidadItemsPublicados += item.available_quantity
+						+ item.sold_quantity
+				if (item.sold_quantity > itemMasVendido)
 					crearDescripcionItemMasVendido(item)
 				if (item.accepts_mercadopago)
 					cantidadItemsConMP++
@@ -209,12 +227,16 @@
 				envioGratisItemMasVendido = "Envio gratis"
 			else
 				envioGratisItemMasVendido = "Envío pago"
-			descripcionItemMasVendido += "<div align=center><h3>"+ "Item más vendido acorde a tu búsqueda"+"</h3></div>"+
-				"<div align=center><h5><a href='"+item.permalink+"'>"+item.title+"</a>"+"</h5></div>"+
-				"<div align=center><h5> Precio: $ "+item.price+"</h5></div>"+
-				"<div align=center><h5>"+item.sold_quantity+" ventas"+"</h5></div>"+
-				"<div align=center><h5>"+aceptaMp+"</h5></div>"+
-				"<div align=center><h5>"+envioGratisItemMasVendido+"</h5></div>"
+			descripcionItemMasVendido += "<div align=center><h3>"
+					+ "Item más vendido acorde a tu búsqueda" + "</h3></div>"
+					+ "<div align=center><h5><a href='"+item.permalink+"'>"
+					+ item.title + "</a>" + "</h5></div>"
+					+ "<div align=center><h5> Precio: $ " + item.price
+					+ "</h5></div>" + "<div align=center><h5>"
+					+ item.sold_quantity + " ventas" + "</h5></div>"
+					+ "<div align=center><h5>" + aceptaMp + "</h5></div>"
+					+ "<div align=center><h5>" + envioGratisItemMasVendido
+					+ "</h5></div>"
 		}
 
 		function mostrarError() {
