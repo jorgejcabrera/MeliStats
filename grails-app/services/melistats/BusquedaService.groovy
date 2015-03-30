@@ -9,7 +9,7 @@ import java.util.List
 @Transactional
 class BusquedaService {
 
-	def endpointItems = 'https://api.mercadolibre.com/sites/MLA/search?limit=50&q='
+	def endpointItems = 'https://api.mercadolibre.com/sites/MLA/search?limit=1000&q='
 	def slurper = new JsonSlurper()
     def muestraService
     def preferenciaService

@@ -8,6 +8,10 @@ class PreferenciaService {
 	def mejoresResultados(productos, muestra, preferencia)
 	{
        def ordenadosPorPreferencia = productos.sort{ puntaje(it, muestra, preferencia) }
+       ordenadosPorPreferencia = ordenadosPorPreferencia.findAll{
+                                    preferencia.condicionPref == 'any' ||
+                                    it.condition == condidcionAEstado(preferencia.condicionPref) 
+                                }
        def tamanio = ordenadosPorPreferencia.size()
        return ordenadosPorPreferencia[tamanio-5..tamanio-1] 
 	} 
@@ -54,6 +58,24 @@ class PreferenciaService {
     	}
 
     	return puntaje
+
+    }
+
+    def condidcionAEstado(condicion)
+    {
+        
+        if(condicion<4)
+        {
+            return 'used'
+        }
+        else if(condicion<7)
+        {
+            return 'any'
+        }
+        else 
+        {
+            return 'new'
+        }
 
     }
 }
