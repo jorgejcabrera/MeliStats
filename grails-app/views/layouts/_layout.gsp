@@ -32,10 +32,10 @@
 								<a class="btn btn-danger navbar-btn" aria-expanded="false"href="${createLink(controller:'miPerfil', action:'index') }">Mi perfil</a>
 							</div>
 							<div class="btn-group">
-								<a class="btn btn-danger navbar-btn" aria-expanded="false" href="${createLink(controller:'vender', action:'index')}" class="btn btn-danger navbar-btn">Quiero vender </a>
+								<a class="btn btn-danger navbar-btn" aria-expanded="false" href="${createLink(controller:'vender', action:'index')}" class="btn btn-danger navbar-btn">Quiero Vender </a>
 							</div>
 							<div class="btn-group">
-								<a class="btn btn-danger navbar-btn" aria-expanded="false" href="${createLink(controller:'busqueda', action: 'index')}">Quiero comprar</a>
+								<a class="btn btn-danger navbar-btn" aria-expanded="false" href="${createLink(controller:'busqueda', action: 'index')}">Quiero Comprar</a>
 							</div>
 							<a type="button" class="btn btn-danger navbar-btn" aria-expanded="false" href="${createLink(controller:'logout') }">Logout</a>
 						</sec:ifLoggedIn>	
