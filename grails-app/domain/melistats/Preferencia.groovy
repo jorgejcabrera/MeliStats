@@ -5,6 +5,7 @@ class Preferencia {
 	int precioPref
 	int envioPref
 	int reputacionPref
+	int condicionPref
 	static constraints = {
 	}
 }

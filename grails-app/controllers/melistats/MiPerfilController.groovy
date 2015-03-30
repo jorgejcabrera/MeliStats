@@ -13,8 +13,9 @@ class MiPerfilController {
      		def precio = params.precioPref
      		def envio = params.envioPref
      		def reputacion = params.reputacionPref
+     		def condicion = params.condicionPref
 
-     		Preferencia p1 = new Preferencia(nombrePref: nombre, precioPref: precio, envioPref: envio, reputacionPref: reputacion);
+     		Preferencia p1 = new Preferencia(nombrePref: nombre, precioPref: precio, envioPref: envio, reputacionPref: reputacion, condicionPref: condicion);
      		p1.save(failOnError:true)
 
      		actual.addToPreferencias(p1)
@@ -45,6 +46,7 @@ class MiPerfilController {
 		pref.precioPref = Integer.parseInt(params.precioPref)
 		pref.envioPref = Integer.parseInt(params.envioPref)
 		pref.reputacionPref = Integer.parseInt(params.reputacionPref)
+		pref.condicionPref = Integer.parseInt(params.condicionPref)
 		pref.save(flush:true, failOnError:true)
 		redirect(action:'index')
 	}
@@ -60,7 +62,7 @@ class MiPerfilController {
 
 
     def index() {
-    	[preferencias:usuarioService.usuarioActual().preferencias.sort{it.nombrePref}, busquedas: usuarioService.usuarioActual().busquedas.sort{it.fechaInicioBusqueda}.reverse(true)]
+    	[preferencias:usuarioService.usuarioActual().preferencias.sort{it.id}.reverse(true), busquedas: usuarioService.usuarioActual().busquedas.sort{it.fechaInicioBusqueda}.reverse(true)]
     }
 
 

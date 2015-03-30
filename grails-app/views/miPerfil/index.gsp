@@ -42,8 +42,8 @@
 											<div>
 												<h4 class="featurette-heading">¿Qué nombre le quiere
 													dar a la preferencia?</h4>
-												<input type="text" placeholder="Ingrese el nombre elegido"
-													id="campoNombre" style="width: 100%;" name="nombrePref"
+												<input type="text" placeholder="Ingrese el nombre elegido"  title="Escribe solo letras, sin signos"
+													id="campoNombre" style="width: 100%;" pattern="[A-Za-z0-9]+" name="nombrePref"
 													required>
 											</div>
 											<br>
@@ -74,6 +74,14 @@
 													id="campoReputacion" name="reputacionPref" value="">
 											</div>
 											<br>
+											<div>
+												<h4 class="featurette-heading">¿Cuánto le importa que el producto sea nuevo?</h4>
+												<div>Poco &nbsp&nbsp Mucho</div>
+												<input type="range" min="0"
+													max"10" placeholder="Elija la importancia que le da a que el producto sea usado o nuevo"
+													id="campoCondicion" name="condicionPref" value="">
+											</div>
+											<br>
 											<br>
 
 											<button id="botonAgregarPreferencia" class="btn btn-danger"
@@ -97,14 +105,14 @@
 
 				<g:each in="${preferencias}" var="pref">
 					<div class="jumbotron"
-						style="width: 420px; height: 220px; position: relative; margin-left: -50px; margin-bottom: -11px;">
+						style="width: 420px; height: 245px; position: relative; margin-left: -50px; margin-bottom: -11px;">
 						<form id="formPref${pref.id}"
 							action="${createLink(controller: 'miPerfil', action: 'guardarCambiosPref')}"
 							method="post">
 							<input type="hidden" name="idPreferencia" value="${pref.id}" />
 							<div style="margin-top: -38px; margin-left: -5px;">
 								<input type="hidden" id="campoNombre${pref.id}">
-								${pref.nombrePref}
+								<strong> ${pref.nombrePref} </strong>
 							</div>
 							<div style="margin-left: -5px;">
 								Importancia precio barato: <input type="range" min="0"
@@ -121,18 +129,25 @@
 									max"10" id="campoVendedor${pref.id}" name="reputacionPref"
 									value="${pref.reputacionPref}" disabled>
 							</div>
+							<div style="margin-left: -5px;">
+								Importancia sobre un producto nuevo: <input type="range" min="0"
+									max"10" id="campoCondicion${pref.id}" name="condicionPref"
+									value="${pref.condicionPref}" disabled>
+							</div>
 
 						</form>
 						<script>
 								function editarPreferencias${pref.id}(){
 									$("#campoPrecio${pref.id}").removeAttr('disabled')
 									$("#campoEnvio${pref.id}").removeAttr('disabled')
+									$("#campoCondicion${pref.id}").removeAttr('disabled')
 									$("#campoVendedor${pref.id}").removeAttr('disabled')
 									$("#btnGuardar${pref.id}").removeAttr('disabled')
+									$("#btnGuardar${pref.id}").show()
 								}
 							</script>
 
-						<input type="submit" class="btn btn-danger"
+						<input type="submit" class="btn btn-submit"
 							style="margin-left: -5px; margin-top: 10px;" value="Editar"
 							id="btnEditar${pref.id}" onClick="editarPreferencias${pref.id}()"
 							name="editar" />
@@ -143,8 +158,8 @@
 								}
 							</script>
 
-						<input type="submit" class="btn btn-danger"
-							style="margin-left: 90px; margin-top: 10px;"
+						<input type="submit" class="btn btn-success"
+							style="margin-left: 90px; margin-top: 10px; display:none;"
 							value="Guardar cambios" id="btnGuardar${pref.id}"
 							onClick="guardarCambios${pref.id}()" name="guardarCambios"
 							disabled />
@@ -152,7 +167,7 @@
 
 						<g:form controller="MiPerfil" action="eliminarPref">
 							<input type="hidden" name="idPreferencia" value="${pref.id}" />
-							<input type="submit" class="btn btn-danger"
+							<input type="submit" class="btn btn-submit"
 								style="margin-left: 66px; margin-top: -56px;" value="Eliminar"
 								id="btnEliminarPref" controller="MiPerfil" action="eliminarPref"
 								name="EliminarPref" />
@@ -167,34 +182,44 @@
 		<div style="position: relative; top: 50px; left: 50px">
 			<aside style="font-style: arial; float: right; margin-right: 180px">
 				<h1
-					style="text-align: center; margin-bottom: 29px; margin-left: -23px; color: #000;">
+					style="text-align: center; margin-bottom: -26px; margin-left: -49px; color: #000;">
 					<span class="label label-danger">Mis búsquedas</span>
 				</h1>
 
 				<g:each in="${busquedas}" var="busq">
 					<div class="jumbotron"
-						style="width: 446px; height: 180px; position: relative; margin-left: -23px; margin-bottom: 15px; margin-top: 18px;">
+						style="width: 446px; height: 150px; position: relative; margin-left: -60px; margin-bottom: 15px; margin-top: 53px;">
 						<div style="margin-left: -37px; margin-top: -32px">
-							Búsqueda:
-							${busq.descripcion}
+							<strong>
+								${busq.descripcion}
+							</strong>
 						</div>
-						<div style="margin-left: -38px; margin-top: 6px;">
-							Fecha en la que se realizó:
+
+						<div style= "margin-left: -38px; margin-top: 7px">
+							<img src='${busq.getImagen()}' height='80' width='80'>
+						</div>
+						
+						<div style="margin-left: 53px; margin-top: -82px; margin-right: 94px;">
+							Fecha de búsqueda: <br>
 							${busq.fechaInicioBusqueda}
 						</div>
-						<div><img src='${busq.getImagen()}' height='80' width='80'></div>
-						<a href="${createLink(controller: 'estadistica', action: 'index', params: [busqueda: busq.descripcion])}"
-							style="margin-left: -38px; margin-top: -120px; color: #E03549">Ver
+
+						<div style="">
+							<a href="${createLink(controller: 'estadistica', action: 'index', params: [busqueda: busq.descripcion])}"
+							style="margin-left: 55px; margin-top: -120px; color: #E03549">Ver
 							estadísticas</a>
+						<div>
+
+
 						
 						<form
 							action="${createLink(controller: 'miPerfil', action: 'eliminarBusq')}"
 							method="post">
 							<input type="hidden" name="idBusqueda" value="${busq.id}"
-								id="idBusqueda" /> <input type="submit" class="btn btn-danger"
+								id="idBusqueda" /> <input type="submit" class="btn btn-submit"
 								value="Eliminar" id="btnEliminarBusq" controller="MiPerfil"
 								action="eliminarBusq"
-								style="margin-left: 289px; margin-top: -88px;" />
+								style="margin-left: 257px; margin-top: -59px;" />
 						</form>
 					</div>
 				</g:each>

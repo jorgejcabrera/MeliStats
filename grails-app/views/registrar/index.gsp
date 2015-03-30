@@ -13,11 +13,11 @@
 				<g:form controller="registrar" action="registrarUsuario">
 					<h3>Crea tu usuario de MeliStats</h3><br>
 					<h5 style="margin-left:-176px"><strong>Elige tu nombre de usuario</strong></h5>
-    				<input type="text" name="nombre" id="txtNombre" class="form-control" placeholder="Nombre de usuario" maxlength="15" required>
+    				<input type="text" name="nombre" id="txtNombre" class="form-control" placeholder="Nombre de usuario" maxlength="15" pattern="[A-Za-z0-9]+" title="" required>
 	    			<h5 style="margin-left:-217px"><strong>Elige una contraseña</strong></h5>
     				<input type="password" name="cont" id="txtCont" class="form-control" placeholder="Contraseña" maxlength="8" required>			
 	    			<h5 style="margin-left:-230px"><strong>Correo electrónico</strong></h5>
-	    			<input type="email" name="mail" id="txtNombre" class="form-control" placeholder="example@melistats.com" required><br><br>
+	    			<input type="email" name="mail" id="txtNombre" class="form-control" placeholder="example@melistats.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Por ejemplo: example@melistats.com" required><br><br>
     				<input type="submit" name="registrarse" id="registrarse" class="btn btn-danger" value="Registrarse" >
 
  				</g:form>
