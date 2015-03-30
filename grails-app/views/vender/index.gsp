@@ -37,14 +37,13 @@
 				<h2 style="margin-left: 33px; margin-bottom: 25px; text-align: left; color: #000;"> <span class="label label-danger">Posibles compradores</h2>
 				<div class="jumbotron" id="div-posibles-compradores" style="width: 275px; margin-left:31px; height: 20px; position: relative;">
 					<div id="posible-comprador">
-						
-							<div id="nombrePosibleComprador"> #nombreComprador </div>
+						<div id="nombrePosibleComprador"> #nombreComprador </div>
+						<g:form method="POST" controller="vender" action="enviarMail">
+						<input type="hidden" name="mailComprador" value="#mailComprador">
+						<input type="hidden" name="mailProducto" value="#nombreProducto">
+						<input type="submit" class="btn btn-default" style="margin-left:54px" value="Contactar">
+					</g:form>	
 					</div>
-					<g:form method="POST" controller="vender" action="enviarMail">
-							<input type="hidden" name="mailComprador" value="#mailComprador">
-							<input type="hidden" name="mailProducto" value="#nombreProducto">
-							<input type="submit" class="btn btn-default" style="margin-left:54px" value="Contactar">
-						</g:form>
 				</div>
 			</aside>
 		</article>
@@ -137,7 +136,7 @@
 				var str = $("#posible-comprador-template").html();
         		str = str.replace("#nombreComprador", item.nombre);
         		str = str.replace("#mailComprador", item.mail);
-        		str = str.replace("#nombreProducto", item.busqueda);
+        		str = str.replace("#nombreProducto", $("#textBusqueda").val());
         		console.log(str)
         		$("#posible-comprador").show();
         		$("#posible-comprador").append(str);
