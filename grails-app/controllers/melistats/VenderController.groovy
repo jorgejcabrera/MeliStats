@@ -26,9 +26,7 @@ class VenderController {
 		def mail = params.mailComprador
 		def producto = params.mailProducto
 		envioMailService.enviarMail(mail, producto)
-		//render [status:'success'] as JSON
-		//redirect(action:'index')
-
-		//catch render [status:'failed'] as JSON
+		flash.message="success"
+		redirect(action:'index')
 	}
 }

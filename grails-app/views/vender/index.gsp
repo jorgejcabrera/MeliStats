@@ -21,7 +21,7 @@
 						<span class="input-group-btn"> 
 								<g:select class="btn btn-danger" style="height: 34px;" id="condicion" name="condicion" from="${['Nuevo', 'Usado']}" optionKey="${condicion}"/>
 							<button class="btn btn-danger" style="" id="botonBuscador"
-								type="button">Buscar</button>
+								type="button" onClick="verificarClick()">Buscar</button>
 						</span>
 					</div>
 				</div>
@@ -48,6 +48,11 @@
 						</div>
 					</div>
 				</span>
+				<g:if test="${flash.message=='success'}">
+					<div align="center" style="margin-left: -21%;">
+						<span class="label label-success">Mail enviado correctamente</span>
+					</div>
+				</g:if>
 			</aside>
 		</article>
 	</div>
@@ -78,10 +83,10 @@
 		$("#listado-resultado").hide()
 		$("#posible-comprador").hide()
 		$("#posible-comprador-template").hide()
-		$("#botonBuscador").click(accionBuscar)
 		$("#textBusqueda").keypress(verificarEnter)
 
 		function limpiarPantalla(){
+			$("#posible-comprador").empty()
 			var tabla = document.getElementById("listado-resultado") 
 			while (tabla.firstChild) {
 				tabla.removeChild(tabla.firstChild)
@@ -145,7 +150,12 @@
         		$("#posible-comprador").append(str);
 		}
 
-
+		function verificarClick(){
+				var busqueda = $("#textBusqueda").val()
+				posiblesCompradores(busqueda)	
+				accionBuscar()
+				return false
+		}
 
 		function verificarEnter(event) {
 			if (event.which == 13) {
