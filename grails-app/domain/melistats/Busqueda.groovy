@@ -26,9 +26,4 @@ class Busqueda {
 		return muestras.last()
 	}
 
-	def getDescripcion()
-	{
-		return descripcion.capitalize()
-	}
-
 }
