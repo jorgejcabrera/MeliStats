@@ -62,7 +62,7 @@
 			<div id="nombrePosibleComprador" style="position: relative; top: -35px; left: 55px;"> #nombreComprador </div>
 			<input type="hidden" name="mailComprador" value="#mailComprador">
 			<input type="hidden" name="mailProducto" value="#nombreProducto">
-			<input type="submit" class="btn btn-default" style="margin-left: 143px; margin-top: -113px;" value="Contactar">
+			<input type="submit" class="btn btn-submit" style="margin-left: 143px; margin-top: -113px;" value="Contactar">
 		</g:form>
 	</script>
 	<script type="text/javascript">
