@@ -8,41 +8,52 @@
 <body>
 	<g:hiddenField id="offset" name="offset" value="0" />
 	<g:hiddenField id="maxRows" name="maxRows" value="0" />
-	<div style="  position: relative; top: 50px; left: 4px; width: 99%;">
-			<div style="margin-left: -10%;">
-			<h2 style="margin-left: 169px; margin-bottom: 7px;">¿Qué desea vender?</h2>
-				<div class="row">
-					<div class="col-lg-6"   style="margin-left: 461px;">
-						<div class="input-group" style="margin-top: -38px; margin-left: 18px;">
-							<input type="text" class="form-control" id="textBusqueda"
-								placeholder="Escriba el producto para el cual quiera obtener sugerencias de venta"> <span
-								class="input-group-btn">
-								<button class="btn btn-danger" style="" id="botonBuscador" type="button">Buscar</button>
-							</span>
-						</div>
+	<div style="position: relative; top: 50px; left: 4px; width: 99%;">
+		<div style="margin-left: -10%;">
+			<h2 style="margin-left: 169px; margin-bottom: 7px;">¿Qué desea
+				vender?</h2>
+			<div class="row">
+				<div class="col-lg-6" style="margin-left: 461px;">
+					<div class="input-group"
+						style="margin-top: -38px; margin-left: 18px;">
+						<input type="text" class="form-control" id="textBusqueda"
+							placeholder="Escriba el producto para el cual quiera obtener sugerencias de venta">
+						<span class="input-group-btn"> 
+								<g:select class="btn btn-danger" style="height: 34px;" id="condicion" name="condicion" from="${['Nuevo', 'Usado']}" optionKey="${condicion}"/>
+							<button class="btn btn-danger" style="" id="botonBuscador"
+								type="button">Buscar</button>
+						</span>
 					</div>
 				</div>
 			</div>
+		</div>
 		<article>
 			<section style="float: left; width: 65%; border: 0px solid">
-				<div align="center" class="well well-sm" style="margin-top: 11px; margin-left:74px">
-				<div align="center" id="listado-resultado"></div>
-				<div id="piechart" style="width: 700px; height: 300px;"></div>
-				<div id="piechart2" style="width: 700px; height: 300px;"></div>
-				<div id="piechart3" style="width: 700px; height: 300px;"></div>
+				<div align="center" class="well well-sm"
+					style="margin-top: 11px; margin-left: 74px">
+					<div align="center" id="listado-resultado"></div>
+					<div id="piechart" style="width: 700px; height: 300px;"></div>
+					<div id="piechart2" style="width: 700px; height: 300px;"></div>
+					<div id="piechart3" style="width: 700px; height: 300px;"></div>
 				</div>
-				
+
 			</section>
-			<aside style="font-style: arial; float: right; width: 34%; border: 0px solid">
-				<h2 style="margin-left: 33px; margin-bottom: 25px; text-align: left; color: #000;"> <span class="label label-danger">Posibles compradores</h2>
-				<div class="jumbotron" id="div-posibles-compradores" style="width: 275px; margin-left:31px; height: 20px; position: relative;">
+			<aside
+				style="font-style: arial; float: right; width: 34%; border: 0px solid">
+				<h2
+					style="margin-left: 33px; margin-bottom: 25px; text-align: left; color: #000;">
+					<span class="label label-danger">Posibles compradores</span>
+				</h2>
+				<div class="jumbotron" id="div-posibles-compradores"
+					style="width: 275px; margin-left: 31px; height: 20px; position: relative;">
 					<div id="posible-comprador">
-						<div id="nombrePosibleComprador"> #nombreComprador </div>
+						<div id="nombrePosibleComprador">#nombreComprador</div>
 						<g:form method="POST" controller="vender" action="enviarMail">
-						<input type="hidden" name="mailComprador" value="#mailComprador">
-						<input type="hidden" name="mailProducto" value="#nombreProducto">
-						<input type="submit" class="btn btn-default" style="margin-left:54px" value="Contactar">
-					</g:form>	
+							<input type="hidden" name="mailComprador" value="#mailComprador">
+							<input type="hidden" name="mailProducto" value="#nombreProducto">
+							<input type="submit" class="btn btn-default"
+								style="margin-left: 54px" value="Contactar">
+						</g:form>
 					</div>
 				</div>
 			</aside>
@@ -185,11 +196,17 @@
 
 		//los articulos que son subastas tienen una varianza en el precio muy grande con el promedio
 		function procesarItem(index, item) {
-			if (item.buying_mode != "auction") {
+			var condicion = $("#condicion").val()
+			if (condicion == "Usado")
+				condicion = "used"
+			else
+				condicion = "new"
+			if (item.buying_mode != "auction" && item.condition == condicion) {
 				sumaTotal += item.price
 				cantidadItemsVendidos += item.sold_quantity
-				cantidadItemsPublicados += item.available_quantity + item.sold_quantity
-				if(item.sold_quantity > itemMasVendido)
+				cantidadItemsPublicados += item.available_quantity
+						+ item.sold_quantity
+				if (item.sold_quantity > itemMasVendido)
 					crearDescripcionItemMasVendido(item)
 				if (item.accepts_mercadopago)
 					cantidadItemsConMP++
@@ -211,12 +228,16 @@
 				envioGratisItemMasVendido = "Envio gratis"
 			else
 				envioGratisItemMasVendido = "Envío pago"
-			descripcionItemMasVendido += "<div align=center><h3>"+ "Item más vendido acorde a tu búsqueda"+"</h3></div>"+
-				"<div align=center><h5><a href='"+item.permalink+"'>"+item.title+"</a>"+"</h5></div>"+
-				"<div align=center><h5> Precio: $ "+item.price+"</h5></div>"+
-				"<div align=center><h5>"+item.sold_quantity+" ventas"+"</h5></div>"+
-				"<div align=center><h5>"+aceptaMp+"</h5></div>"+
-				"<div align=center><h5>"+envioGratisItemMasVendido+"</h5></div>"
+			descripcionItemMasVendido += "<div align=center><h3>"
+					+ "Item más vendido acorde a tu búsqueda" + "</h3></div>"
+					+ "<div align=center><h5><a href='"+item.permalink+"'>"
+					+ item.title + "</a>" + "</h5></div>"
+					+ "<div align=center><h5> Precio: $ " + item.price
+					+ "</h5></div>" + "<div align=center><h5>"
+					+ item.sold_quantity + " ventas" + "</h5></div>"
+					+ "<div align=center><h5>" + aceptaMp + "</h5></div>"
+					+ "<div align=center><h5>" + envioGratisItemMasVendido
+					+ "</h5></div>"
 		}
 
 		function mostrarError() {
