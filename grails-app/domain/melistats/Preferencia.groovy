@@ -7,4 +7,5 @@ class Preferencia {
 	int reputacionPref
 	static constraints = {
 	}
+
 }
