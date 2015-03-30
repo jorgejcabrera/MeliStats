@@ -32,8 +32,6 @@ class BusquedaService {
     * Recibe en params: 
     * textoBusuqeda, la consulta de busqueda
     * preferencia, la id de la preferencia seleccionada (o null si no se eligio)
-    * guardarBusqueda, puede valer 'true' o 'false' e indica si guardar la busqueda
-    * en el perfil del usuario
     */
     def buscar(params)
     {   	
@@ -54,14 +52,10 @@ class BusquedaService {
         //suma uno a la cantidad de veces que fue busacada, al inicializarse está en 0
         busqueda.frecuencia++
         
-        //si la busqueda se debe guardar en el perfil, 
         //se busca si existe ya en este usuario. Si existe, no se hace nada; de lo contrario
         //se guarda en el usuario actual.
-        if(params.guardarBusqueda == "true")
-        {
-            guardarBusqueda(busqueda)            
-        }
-
+        guardarBusqueda(busqueda)            
+        
         //si no hay muestras muestraSerice.agregarMuestra() crea una, la agrega a la busqueda y la devuelve
         //si no lee la ultima
         def  muestra = busqueda.getUltimaMuestra()?: muestraService.agregarMuestra(busqueda, datos)       
