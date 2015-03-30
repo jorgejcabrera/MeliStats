@@ -75,7 +75,7 @@
 		del conjunto de items correspondientes a una busquedea*/
 
 		var deferred
-		var cantidadItems = 1000
+		var cantidadItems = 0
 		var sumaTotal = 0
 		var cantidadItemsConMP = 0.0
 		var cantidadItemsVendidos = 0.0
@@ -96,7 +96,7 @@
 				$("#piechart").empty()
 				$("#piechart2").empty()
 				$("#piechart3").empty()
-				cantidadItems = 1000
+				cantidadItems = 0
 				sumaTotal = 0
 				cantidadItemsConMP = 0
 				cantidadItemsVendidos = 0
@@ -168,7 +168,13 @@
 		function procesarEstadisticas(data) {
 			console.log(data.paging)
 			$.each(data.results, procesarItem)
-			if (data.paging.offset + data.paging.limit < cantidadItems) {
+			var maximaCantidadDeItems = 1000
+			var itemsAProcesar
+			if (data.paging.total < maximaCantidadDeItems)
+				itemsAProcesar = data.paging.total
+			else
+				itemsAprocesar = maximaCantidadDeItems
+			if (data.paging.offset + data.paging.limit < maximaCantidadDeItems) {
 				calcular(data.paging.offset + data.paging.limit)
 				return true
 			}
@@ -202,6 +208,7 @@
 			else
 				condicion = "new"
 			if (item.buying_mode != "auction" && item.condition == condicion) {
+				cantidadItems ++
 				sumaTotal += item.price
 				cantidadItemsVendidos += item.sold_quantity
 				cantidadItemsPublicados += item.available_quantity
