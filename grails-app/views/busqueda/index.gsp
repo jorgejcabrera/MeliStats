@@ -24,11 +24,6 @@
 					<div class="form-group" id="contenedor-buscar">
 						<input class="form-control" id="buscar" type="button" onclick="ejecutarBusqueda()" name="buscar" value="Buscar"> 
 					</div>
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" name="guardar" id="checkbox">Guardar Búsqueda
-						</label>
-					</div>
 				</div>
 			</div>
 			<div id="items-stats-container" style="position:relative; top:200px; width:900px;">

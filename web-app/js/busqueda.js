@@ -39,9 +39,8 @@ function ejecutarBusqueda()
 	var jsonBusqueda = {
 
 		textoBusqueda : $('#busqueda').val(),
-		preferencia : $('#preferencia').val(),
-		guardarBusqueda : $('#checkbox').is(':checked')
-
+		preferencia : $('#preferencia').val()
+		
 	}
 
 	var promesa = $.post(endpoint, jsonBusqueda)
