@@ -29,7 +29,7 @@
 		</div>
 		<article>
 			<section style="float: left; width: 65%; border: 0px solid">
-				<div align="center" class="well well-sm"
+				<div align="center" class="well well-sm" id="div-resultados-ventas"
 					style="margin-top: 11px; margin-left: 74px">
 					<div align="center" id="listado-resultado"></div>
 					<div id="piechart" style="width: 700px; height: 300px;"></div>
@@ -76,6 +76,24 @@
 		var cantidadItemsConMEGratis = 0.0
 		var cantidadItemsPublicados = 0.0
 		var itemMasVendido = 0.0
+		/*var opts = {
+			lines: 15, // The number of lines to draw
+			length: 21, // The length of each line
+			width: 10, // The line thickness
+			radius: 36, // The radius of the inner circle
+			corners: 0.7, // Corner roundness (0..1)
+			rotate: 19, // The rotation offset
+			direction: 1, // 1: clockwise, -1: counterclockwise
+			color: '#000', // #rgb or #rrggbb or array of colors
+			speed: 1.2, // Rounds per second
+			trail: 25, // Afterglow percentage
+			shadow: true, // Whether to render a shadow
+			hwaccel: true, // Whether to use hardware acceleration
+			className: 'spinner', // The CSS class to assign to the spinner
+			zIndex: 2e9, // The z-index (defaults to 2000000000)
+			top: '50%', // Top position relative to parent
+			left: '50%' // Left position relative to parent
+		} spinner options*/
 		var descripcionItemMasVendido = ""
 		$("#listado-resultado").hide()
 		$("#posible-comprador").hide()
@@ -260,7 +278,7 @@
 					[ 'Acepta', (cantidadItemsConMP) ],
 					[ 'No Acepta', (cantidadItems - cantidadItemsConMP) ], ]);
 			var options = {
-				title : 'Articulos con mercado de pago'
+				title : 'Articulos con MercadoPago'
 			};
 			var chart = new google.visualization.PieChart(document
 					.getElementById('piechart'));
@@ -270,11 +288,11 @@
 		google.setOnLoadCallback(drawChart2);
 		function drawChart2(cantidadItemsConMEGratis, cantidadItems) {
 			var data = google.visualization.arrayToDataTable([
-					[ 'MercadoEnvio', 'Porcentaje' ],
+					[ 'MercadoEnvío', 'Porcentaje' ],
 					[ 'Gratis', (cantidadItemsConMEGratis) ],
 					[ 'Pago', (cantidadItems - cantidadItemsConMEGratis) ], ]);
 			var options = {
-				title : 'Articulos con mercado envío'
+				title : 'Articulos con MercadoEnvío'
 			};
 			var chart = new google.visualization.PieChart(document
 					.getElementById('piechart2'));

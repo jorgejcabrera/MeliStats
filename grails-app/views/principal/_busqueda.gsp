@@ -6,14 +6,14 @@
 	<div class="col-md-4">
 		<g:if test="${it != null}">
 			<div class="alert alert-info text-center" style="height: 200px">
-				<h4>
+				<h3 style="margin-top: 2px;">
 					<a
 						href="${createLink(controller: 'estadistica', action: 'index', params: [busqueda: it.descripcion])}">
 						${it.descripcion}
 					</a>
-				</h4>
-				<div>
-					<img src='${it.getImagen()}' height='140' width='140'>
+				</h3>
+				<div style="margin-top: 19px;">
+					<img src='${it.getImagen()}' height='100' width='100'>
 				</div>
 			</div>
 		</g:if>
