@@ -12,7 +12,7 @@ class PreferenciaServiceSpec extends Specification {
 
     def setup() {
     	def nuevaPref = new Preferencia(nombrePref:"hola", precioPref:10, envioPref:30, reputacionPref:15, condicionPref:25)
-    	mockDomain(Preferencia, [Preferencia])
+    	mockDomain(Preferencia, [nuevaPref])
     }
 
     def cleanup() {
@@ -21,22 +21,35 @@ class PreferenciaServiceSpec extends Specification {
 
     void "Las prefencias se editan correctamente"() {
 		given:
-			def nombrePref = "NewName"
+			def nombrePref = "hola"
 			def precioPref = "30"
 			def envioPref = "40"
 			def reputacionPref = "35"
 			def condicionPref = "45"
-			def idPreferencia = 0
-			def datos = [nombrePref:nombrePref, precioPref:precioPref, envioPref:envioPref, reputacionPref:reputacionPref, condicionPref:condicionPref, idPreferencia: idPreferencia]
+			def id = 1
+			def datos = [nombrePref:nombrePref, precioPref:precioPref, envioPref:envioPref, reputacionPref:reputacionPref, condicionPref:condicionPref, idPreferencia: id]
 		
 		when:
 			def result = service.editarPreferencia(datos)
 		
 		then:
-			result.nombrePref == "NewName"
-			result.precioPref == 30
-			result.envioPref == 40
-			result.reputacionPref == 35
-			result.condicionPref == 45
+			assert result.nombrePref == "hola"
+			assert result.precioPref == 30
+			assert result.envioPref == 40
+			assert result.reputacionPref == 35
+			assert result.condicionPref == 45
+	}
+
+	void "Las preferencias se borran correctamente"() {
+		given:
+			def id = 1
+			def usuarioServiceMock = [usuarioActual:{[save:{a -> true}, removeFromPreferencias: {a -> true}]}]
+			service.usuarioService = usuarioServiceMock
+
+		when:
+			service.eliminarPreferencia(id)
+
+		then:
+			assert Preferencia.list() == []
 	}
 }
