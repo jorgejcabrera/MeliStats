@@ -42,11 +42,11 @@ Una vez instalado Grails, se debe crear un archivo '**MeliStats-config.groovy**'
 que se encuentra en el home del usuario. Dentro del archivo se debe incluir lo siguiente:
 
 ```
-dataSource.username = "<usuario>"
-dataSource.password = "<contraseña>"
+dataSource.username = "usuario"
+dataSource.password = "contraseña"
 
 ```
-Donde <usuario> y <contraseña> corresponden al usuario y contraseña de su usuario de MySQL.
+Donde usuario y contraseña corresponden al usuario y contraseña de su usuario de MySQL.
 
 Ejecución
 =========
