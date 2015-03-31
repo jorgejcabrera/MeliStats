@@ -13,7 +13,7 @@
 					</a>
 				</h4>
 				<div>
-					<img src='${it.getImagen()}' height='80' width='80'>
+					<img src='${it.getImagen()}' height='140' width='140'>
 				</div>
 			</div>
 		</g:if>
