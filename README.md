@@ -1,7 +1,7 @@
 # MeliStats
 
 *MeliStats* es un proyecto integrador de la  capacitación de **MeliAcademy**.
-  Consiste en un sitio web que, a través de la **API de Mercadolibre**, obtiene
+  Consiste en un sitio web que, a través de la [**API de Mercadolibre**](http://developers.mercadolibre.com), obtiene
   **estadísticas** de los productos publicados, y genera información pertinente tanto para
   vendedores como compradores.
   
