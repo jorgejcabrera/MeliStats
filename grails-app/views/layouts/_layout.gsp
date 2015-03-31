@@ -37,7 +37,7 @@
 							<div class="btn-group">
 								<a class="btn btn-danger navbar-btn" aria-expanded="false" href="${createLink(controller:'busqueda', action: 'index')}">Quiero Comprar</a>
 							</div>
-							<a type="button" class="btn btn-danger navbar-btn" aria-expanded="false" href="${createLink(controller:'logout') }">Logout</a>
+							<a type="button" class="btn btn-danger navbar-btn" aria-expanded="false" href="${createLink(controller:'logout') }">Logout <sec:username /></a>
 						</sec:ifLoggedIn>	
 					</ul>
 				</div>
