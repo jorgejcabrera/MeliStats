@@ -54,7 +54,16 @@ class MuestraService {
     		def status = item.seller.power_seller_status
     		if(status != null)
     		{
-    			ventasPorRango.put(status,Integer.toString(item.sold_quantity))
+                if(ventasPorRango[status] == null)
+                {
+                    ventasPorRango.put(status,Integer.toString(item.sold_quantity))
+                }
+                else
+                {
+                    def ventasHastaAhora = Integer.parseInt(ventasPorRango.get(status))
+                    ventasPorRango[status] = Integer.toString(item.sold_quantity + ventasHastaAhora)
+                }
+    			
     		}
     	}
 
