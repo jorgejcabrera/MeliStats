@@ -125,4 +125,17 @@ class BusquedaService {
 		return listaCompradores
     }
 
+    def busquedasOrdenadas()
+    {
+        return usuarioService.usuarioActual().busquedas.sort{it.fechaInicioBusqueda}.reverse(true)
+    }
+
+    def eliminarBusqueda(id){
+
+        def busqueda = Busqueda.get(id as long)
+        usuarioService.usuarioActual().removeFromBusquedas(busqueda)
+        usuarioService.usuarioActual().save(flush:true, failOnError:true)
+
+    }
+
 }

@@ -5,6 +5,8 @@ import grails.transaction.Transactional
 @Transactional
 class PreferenciaService {
 
+    def usuarioService
+
 	def mejoresResultados(productos, muestra, preferencia)
 	{
        def ordenadosPorPreferencia = productos.sort{ puntaje(it, muestra, preferencia) }
@@ -78,4 +80,55 @@ class PreferenciaService {
         }
 
     }
+
+    def preferenciasOrdenadas()
+    {
+        return usuarioService.usuarioActual().preferencias.sort{it.id}.reverse(true)
+    }
+
+    def nuevaPreferencia(mapaPreferencias){
+
+        def actual = usuarioService.usuarioActual()
+
+        if( actual.preferencias.find{it.nombrePref == mapaPreferencias.nombre} == null )
+        {
+            Preferencia p = new Preferencia(mapaPreferencias)
+            p.save(failOnError:true)
+
+            actual.addToPreferencias(p)
+            actual.save(flush: true, failOnError: true)
+
+            return "success"
+
+        }
+        else
+        {
+            return "error"
+        }
+
+    }
+
+    def eliminarPreferencia(id){
+
+        def pref = Preferencia.get(id as long)
+        usuarioService.usuarioActual().removeFromPreferencias(pref)
+        usuarioService.usuarioActual().save(flush:true)
+        pref.delete(flush:true, failOnError:true)
+
+    }
+
+
+    def editarPreferencia(datos){
+
+        def pref = Preferencia.get(datos.idPreferencia as long)
+
+        pref.precioPref = Integer.parseInt(datos.precioPref)
+        pref.envioPref = Integer.parseInt(datos.envioPref)
+        pref.reputacionPref = Integer.parseInt(datos.reputacionPref)
+        pref.condicionPref = Integer.parseInt(datos.condicionPref)
+
+        pref.save(flush:true, failOnError:true)
+
+    }    
+
 }
