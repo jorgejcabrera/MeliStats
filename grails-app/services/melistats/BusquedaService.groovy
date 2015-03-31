@@ -121,9 +121,8 @@ class BusquedaService {
 	
     def posiblesCompradoresVender(busqueda){
         def hql = "select u from Usuario u JOIN u.busquedas b WHERE b.descripcion = :busqueda"
-        def listaCompradores = Usuario.executeQuery(hql,[busqueda: busqueda])
-		def listaCompradoresFiltrada = listaCompradores.findAll {it-> it.nombre != usuarioService.usuarioActual().nombre}
-		return listaCompradoresFiltrada
+        def listaCompradores = Usuario.executeQuery(hql,[busqueda: busqueda]).findAll {it-> it.nombre != usuarioService.usuarioActual().nombre}
+		return listaCompradores
     }
 
 }
