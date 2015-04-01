@@ -90,7 +90,7 @@ class PreferenciaService {
 
         def actual = usuarioService.usuarioActual()
 
-        if( actual.preferencias.find{it.nombrePref == mapaPreferencias.nombre} == null )
+        if( actual.preferencias.find{it.nombrePref == mapaPreferencias.nombrePref} == null )
         {
             Preferencia p = new Preferencia(mapaPreferencias)
             p.save(failOnError:true)
