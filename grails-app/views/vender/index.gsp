@@ -174,12 +174,7 @@
 		}
 
 		function verificarEnter(event) {
-			if (event.which == 13) {
-				var busqueda = $("#textBusqueda").val()
-				posiblesCompradores(busqueda)	
-				accionBuscar()
-				return false
-			}
+			if (event.which == 13) verificarClick()
 		}
 
 		//retorna false cuando se hizo la ultima llamada a la api de mercado libre
