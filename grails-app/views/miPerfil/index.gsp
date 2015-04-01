@@ -18,9 +18,9 @@
 
 				<input class="btn btn-danger"
 					style="width: 42px; height: 41px; margin-top: -72px; margin-left: 261px; font-weight: bold; font-size: 20px;"
-					type="button" value="+" data-toggle="modal" data-target="#myModal"></input>
+					type="button" value="+" data-toggle="modal" data-target="#myModal">
+				</input>
 
-				<!--<li class="active"><a href="#" data-toggle="modal" data-target="#myModal">Crear Preferencia <span class="sr-only">(current)</span></a></li> -->
 				<div class="modal fade bs-example-modal-sm" id="myModal"
 					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
@@ -96,12 +96,6 @@
 						</div>
 					</div>
 				</div>
-
-
-				<!--				<g:if test="${preferencias=='[]'}">
-						<div>CREATE UNA PREF</div>
-					</g:if>
-		-->
 
 				<g:each in="${preferencias}" var="pref">
 					<div class="jumbotron"
@@ -210,8 +204,6 @@
 							estadísticas</a>
 						<div>
 
-
-						
 						<form
 							action="${createLink(controller: 'miPerfil', action: 'eliminarBusq')}"
 							method="post">
