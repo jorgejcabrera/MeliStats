@@ -141,7 +141,7 @@
 								}
 							</script>
 
-						<input type="submit" class="btn btn-submit"
+						<input type="button" class="btn btn-submit"
 							style="margin-left: -5px; margin-top: 10px;" value="Editar"
 							id="btnEditar${pref.id}" onClick="editarPreferencias${pref.id}()"
 							name="editar" />
@@ -152,7 +152,7 @@
 								}
 							</script>
 
-						<input type="submit" class="btn btn-success"
+						<input type="button" class="btn btn-success"
 							style="margin-left: 90px; margin-top: 10px; display:none;"
 							value="Guardar cambios" id="btnGuardar${pref.id}"
 							onClick="guardarCambios${pref.id}()" name="guardarCambios"
