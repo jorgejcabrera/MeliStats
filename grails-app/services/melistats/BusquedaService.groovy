@@ -114,9 +114,9 @@ class BusquedaService {
 	def getMasPopulares(){
 		Date fechaActual = new Date()
 		Date fechaReferencia = new Date()
-		fechaReferencia.set(year: fechaActual.getAt(Calendar.YEAR), month: fechaActual.getAt(Calendar.MONTH), date:1)
+		fechaReferencia.set(year: fechaActual.getAt(Calendar.YEAR), month: fechaActual.getAt(Calendar.MONTH), date:0)
 		def busquedasMasPopularesDelMes = Busqueda.findAllByFechaInicioBusquedaBetween(fechaReferencia,fechaActual,[max:3,sort: "frecuencia", order: "desc", offset: 0])
-		return busquedasMasPopularesDelMes
+        return busquedasMasPopularesDelMes
 	}
 	
     def posiblesCompradoresVender(busqueda){
