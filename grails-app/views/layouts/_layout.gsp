@@ -13,7 +13,9 @@
 			<div class="container">
 				<div class="navbar-header">
           			<ul class="nav navbar-nav">
-          				<li><a class="navbar-brand" href="${createLink(controller:'principal',action:'index') }">MeliStats</a></li>
+          				<li><img src="/MeliStats/images/icono.png" width="50" height="50"></li>
+          				<li><a class="navbar-brand" href="${createLink(controller:'principal',action:'index') }">&nbsp;&nbsp;MeliStats</a></li>
+
           			</ul>
         		</div>
 				<div id="navbar" class="collapse navbar-collapse">
