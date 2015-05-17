@@ -20,24 +20,24 @@ environments {
 		dataSource {
 			dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
 			url = "jdbc:mysql://localhost/melistats?useUnicode=yes&characterEncoding=UTF-8"
-			username = ""
-			password = ""
+			username = "root"
+			password = "mysql"
 		}
 	}
 	test {
 		dataSource {
 			dbCreate = "update"
 			url = "jdbc:mysql://localhost/melistats?useUnicode=yes&characterEncoding=UTF-8"
-			username = ""
-			password = ""
+			username = "root"
+			password = "mysql"
 		}
 	}
 	production {
 		dataSource {
 			dbCreate = "update"
 			url = "jdbc:mysql://localhost/melistats?useUnicode=yes&characterEncoding=UTF-8"
-			username = ""
-			password = ""
+			username = "root"
+			password = "mysql"
 		}
 	}
 }

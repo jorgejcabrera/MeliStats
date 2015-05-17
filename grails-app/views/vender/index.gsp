@@ -215,6 +215,7 @@
 
 		//los articulos que son subastas tienen una varianza en el precio muy grande con el promedio
 		function procesarItem(index, item) {
+			var busqueda = $("#textBusqueda").val()
 			var condicion = $("#condicion").val()
 			if (condicion == "Usado")
 				condicion = "used"
@@ -226,7 +227,7 @@
 				cantidadItemsVendidos += item.sold_quantity
 				cantidadItemsPublicados += item.available_quantity
 						+ item.sold_quantity
-				if (item.sold_quantity > itemMasVendido)
+				if (item.sold_quantity > itemMasVendido && item.title.includes("${busqueda}") )
 					crearDescripcionItemMasVendido(item)
 				if (item.accepts_mercadopago)
 					cantidadItemsConMP++
