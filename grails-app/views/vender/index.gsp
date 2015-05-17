@@ -227,7 +227,7 @@
 				cantidadItemsVendidos += item.sold_quantity
 				cantidadItemsPublicados += item.available_quantity
 						+ item.sold_quantity
-				if (item.sold_quantity > itemMasVendido && item.title.includes("${busqueda}") )
+				if (item.sold_quantity > itemMasVendido && item.title.search("${busqueda}") > -1 )
 					crearDescripcionItemMasVendido(item)
 				if (item.accepts_mercadopago)
 					cantidadItemsConMP++
