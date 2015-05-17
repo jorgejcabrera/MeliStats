@@ -221,13 +221,12 @@
 				condicion = "used"
 			else
 				condicion = "new"
-			if (item.buying_mode != "auction" && item.condition == condicion) {
+			if (item.buying_mode != "auction" && item.condition == condicion && item.title.search("${busqueda}") >= 0) {
 				cantidadItems ++
 				sumaTotal += item.price
 				cantidadItemsVendidos += item.sold_quantity
-				cantidadItemsPublicados += item.available_quantity
-						+ item.sold_quantity
-				if (item.sold_quantity > itemMasVendido && item.title.search("${busqueda}") > -1 )
+				cantidadItemsPublicados += item.available_quantity + item.sold_quantity
+				if (item.sold_quantity > itemMasVendido && item.title.search("${busqueda}") >= 0 )
 					crearDescripcionItemMasVendido(item)
 				if (item.accepts_mercadopago)
 					cantidadItemsConMP++
